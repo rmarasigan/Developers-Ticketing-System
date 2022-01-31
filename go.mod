@@ -1,4 +1,4 @@
-module github.com/mark/ticketing
+module github.com/mark/developers_ticketing_system
 
 go 1.15
 

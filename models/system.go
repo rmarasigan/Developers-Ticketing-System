@@ -9,3 +9,7 @@ type System struct {
 	SystemName string
 	SystemURL  string
 }
+
+func (s *System) String() string {
+	return s.SystemName
+}

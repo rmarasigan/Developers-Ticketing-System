@@ -1,0 +1,51 @@
+<html>
+  <head>
+    <!-- Title -->
+    {{ template "title" . }}
+    <!-- CSS Imports -->
+    <link rel="stylesheet" href="/static/ticketing/css/bootstrap.css">
+    <link rel="stylesheet" href="/static/ticketing/css/index.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    {{ template "style" . }}
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="/dashboard">Ticketing System</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse navbar-margin-left " id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="/dashboard">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/tickets">Tickets</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/systems">Systems</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/developers">Developers</a>
+            </li>
+          </ul>
+          <form class="d-flex">
+            <button class="btn btn-outline-light" type="submit">Logout</button>
+          </form>
+        </div>
+      </div>
+    </nav>
+    <!-- Contents -->
+    <div class = "container-fluid mt-5 mb-5">
+      {{ template "content" . }}
+    </div>
+    <!-- Scripts import -->
+    <script src="/static/ticketing/js/bootstrap.min.js"></script>
+    <script src="/static/ticketing/js/jquery-3.6.0.min.js"></script>
+    {{ template "script" .}}
+  </body>
+  {{ define "style" }}{{ end }}
+  {{ define "script" }}{{ end }}
+</html>
+</html>

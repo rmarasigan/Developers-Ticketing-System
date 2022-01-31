@@ -1,0 +1,191 @@
+{{ define "title"}}
+<title>
+  Dashboard · Ticketing
+</title>
+{{ end }}
+{{ define "content" }}
+<section class = "row">
+  <h1>Tickets</h1>
+  <div id="ticket-append">
+    <!-- Odd  -->
+    <!-- <div class="row partners">
+      <article class="card fl-left">
+        <section class="date">
+          <time>
+            <span>23</span><span>feb</span>
+          </time>
+        </section>
+        <section class="card-cont">
+          <small class="ticket-number">Ticket Number</small>
+          <h2 class="ticket-name">Ticket Name</h2>
+          <div class="even-date">
+            
+            <time>
+              <p>Date Created</p>
+              <p>Time Created</p>
+            </time>
+          </div>
+          <div class="even-info">
+            <p>
+              Created By
+            </p>
+            <p>
+              Assigned to
+            </p>
+          </div>
+          <a href="#">Ticket</a>
+        </section>
+      </article>
+    </div> -->
+
+  </div>  
+</section>
+{{ end }}
+{{ define "script" }}
+<script>
+  var url = "/admin/api/d/ticket/read/?Status=1"
+  var counter = 1;
+  $.get(url, function(index, response){
+    var indexResult = JSON.parse(index).result
+    $.each(indexResult, function(ind, value){
+      $("#ticket-append").append(`<div class = "container-fluid">
+      <div class="card fl-left col-xl-6 col-sm-12 me-1">
+        <section class="date">
+          <time>
+            <span>` + toDays(value.DateCreated) + `</span><span>` + toMonths(value.DateCreated) + `</span><span>` + toYear(value.DateCreated) +`</span>
+          </time>
+        </section>
+        <section class="card-cont">
+          <small class="ticket-number">#` + value.ID + `</small><br>
+          <span class="ticket-name">&nbsp;&#9678 ` + value.Name + `&nbsp;&nbsp;</span>
+          <h1 id="System-`+value.ID +`">` +
+              toSystem(value.SystemID, value.ID)
+            + `</h1>
+          <div class="even-date">
+            <time>
+              <p class="date-created">` + toDate(value.DateCreated) + `</p>
+              
+            </time>
+            <time>
+              <p class="date-created">` + toTime(value.DateCreated) + `</p>
+            </time>
+          </div>
+          <div class="even-info">
+            <span id="AssignedTo-`+value.ID +`">` +
+              toUser(value.AssignedToID, value.ID)
+            + `</span>
+          </div>
+          <button class="btn btn-outline-ticket btn-pull-right" id="open-ticket-`+ value.ID +`" >Open Ticket</button>
+        </section>  
+        </div>
+      </div>`)
+      counter++;
+    })
+  })
+
+  function toDays (dateStr) {
+    var parts = dateStr.split("-")
+    var day = (parts[2]).split("T")
+    return day[0]
+  }
+
+  function toMonths(dateStr){
+    var parts = dateStr.split("-")
+    switch (parts[1]){
+      case "01" || "1":
+        return "Jan";
+      case "02" || "2":
+        return "Feb";
+      case "03" || "3":
+        return "Mar";
+      case "04" || "4":
+        return "Apr";
+      case "05" || "5":
+        return "May";
+      case "06" || "6":
+        return "June";
+      case "07" || "7":
+        return "July";
+      case "08" || "8":
+        return "Aug";
+      case "09" || "9":
+        return "Sept";
+      case "10" :
+        return "Oct";
+      case "11" :
+        return "Nov";
+      case "12" :
+        return "Dec";
+    }
+  }
+
+  function toYear(dateStr) {
+    var parts = dateStr.split("-")
+    return parts[0]
+  }
+  function toDate(dateStr) {
+    var parts = dateStr.split("T")
+    return parts[0]
+  }
+
+  function toTime(dateStr){
+    var parts = dateStr.split("T")
+    var time = (parts[1]).split("+")
+    return time[0]
+  }
+
+  function toUser(id, ele) {
+    var url = "/admin/api/d/user/read/?ID="
+    url += id;
+    $.get(url, function(index, response){
+      var responseResult = JSON.parse(index).result
+      $.each(responseResult, function (key, value) {
+        if(value.ID == id){
+          var FirstName = JSON.stringify(value.FirstName)
+          FirstName = FirstName.split('"')
+          var fname = FirstName[1];
+          var LastName = JSON.stringify(value.LastName)
+          LastName = LastName.split('"')
+          var lname = LastName[1]
+          var fullname = fname + " " + lname;
+          document.getElementById("AssignedTo-"+ele).innerHTML= fullname;
+        }
+      })
+    })
+  }
+
+  function toSystem(id, ele) {
+    var url = "/admin/api/d/ticket/read/?ID="
+    url+=ele;
+    $.get(url, function(index, response){
+      var responseResult = JSON.parse(index).result
+      console.log("res ", responseResult)
+      $.each(responseResult, function(key, value){
+        console.log("val", value.SystemID)
+        if(value.SystemID == id){
+          console.log("MATCH", id)
+          $.get("/admin/api/d/system/read/?ID="+id, function(k,v){
+            console.log("K ",JSON.parse(k).result)
+            var system = JSON.parse(k).result
+            $.each(system, function(i,j){
+              console.log("j", j)
+              document.getElementById("System-"+ele).innerHTML= j.SystemName;
+            })
+          })
+        }
+      })
+    })
+  }
+  // <input type = "file" name = "mis-profile-announcement-file" class = "mis-form-control" placeholder = "Upload File">
+  /*
+    schema := uadmin.Schema["announcement"]
+		fieldName := schema.FieldByName("File")
+		value := mis.ProcessUpload(r, "mis-profile-announcement-file", fieldName, mis.ModelAnnouncement, sess, &schema)
+
+		announcement.UploadFile = value
+  */
+</script>
+<script>
+  var url="/admin/api/d/ticket/read/?"
+</script>
+{{ end }}
