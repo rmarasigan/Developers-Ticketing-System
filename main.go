@@ -13,7 +13,7 @@ func main() {
 	RegisterModels()
 	RegisterHandlers()
 	RegisterInlines()
-	NMSHandlers()
+	// NMSHandlers()
 	ServerandPort()
 }
 
@@ -28,6 +28,7 @@ func RegisterModels() {
 
 func RegisterHandlers() {
 	http.HandleFunc("/", uadmin.Handler(views.LoginHandler))
+	http.HandleFunc("/logout/", uadmin.Handler(views.LogoutHandler))
 	http.HandleFunc("/ticketing/", uadmin.Handler(views.TicketingHandler))
 }
 
@@ -50,10 +51,6 @@ func DBconfig() {
 		Host:     "localhost",
 		Port:     3306,
 	}
-}
-
-func NMSHandlers() {
-
 }
 
 func ServerandPort() {

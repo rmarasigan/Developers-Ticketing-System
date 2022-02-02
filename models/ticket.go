@@ -9,7 +9,7 @@ import (
 type Ticket struct {
 	uadmin.Model
 	Name         string `uadmin:"required;list_exclude"`
-	Description  string `uadmin:"html;required"`
+	Description  string `uadmin:"html;required" gorm:"type:longtext"`
 	System       System
 	SystemID     uint
 	AssignedTo   uadmin.User

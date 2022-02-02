@@ -6,6 +6,10 @@
     <link rel="stylesheet" href="/static/ticketing/css/bootstrap.css">
     <link rel="stylesheet" href="/static/ticketing/css/index.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Poppins:ital@1&display=swap');
+      @import url('https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap');
+    </style>
     {{ template "style" . }}
   </head>
   <body>
@@ -30,19 +34,20 @@
               <a class="nav-link" href="/developers">Developers</a>
             </li>
           </ul>
-          <form class="d-flex">
-            <button class="btn btn-outline-light" type="submit">Logout</button>
+          <form class="d-flex" method="POST" action="/logout">
+            <button class="btn btn-outline-light" type="submit" id="logout" name="request" value="logout">Logout</button>
           </form>
         </div>
       </div>
     </nav>
     <!-- Contents -->
-    <div class = "container-fluid mt-5 mb-5">
+    <div class = "container mt-5 mb-5">
       {{ template "content" . }}
     </div>
     <!-- Scripts import -->
     <script src="/static/ticketing/js/bootstrap.min.js"></script>
     <script src="/static/ticketing/js/jquery-3.6.0.min.js"></script>
+    <script src="/static/ticketing/js/fontawesome.js"></script>
     {{ template "script" .}}
   </body>
   {{ define "style" }}{{ end }}

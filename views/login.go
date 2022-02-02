@@ -68,3 +68,23 @@ func LoginHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	uadmin.RenderHTML(w, r, "./templates/login/login.html", context)
 }
+
+func LogoutHandler(w http.ResponseWriter, r *http.Request) {
+	session := uadmin.Session{}
+	key := uadmin.GetUserFromRequest(r).GetActiveSession().Key
+	uadmin.Trail(uadmin.DEBUG, "%v | %v  yahoo", key, session.Key)
+	// uadmin.Get(&session, "key = ?", key)
+	uadmin.Trail(uadmin.DEBUG, "Session Key Logout: %v", key)
+	uadmin.Get(&session, "`key` = ? ", key)
+	uadmin.DeleteList(&session, "`key` = ?", key)
+
+	// Expire session cookie on logout
+	sessionCookie := &http.Cookie{
+		Name:   "session",
+		Path:   "/",
+		Value:  "",
+		MaxAge: -1,
+	}
+	http.SetCookie(w, sessionCookie)
+	http.Redirect(w, r, "/login/", 303)
+}

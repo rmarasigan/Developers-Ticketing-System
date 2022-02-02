@@ -4,85 +4,209 @@
 </title>
 {{ end }}
 {{ define "content" }}
-<section class = "row">
-  <h1>Tickets</h1>
-  <div id="ticket-append">
-    <!-- Odd  -->
-    <!-- <div class="row partners">
-      <article class="card fl-left">
-        <section class="date">
-          <time>
-            <span>23</span><span>feb</span>
-          </time>
-        </section>
-        <section class="card-cont">
-          <small class="ticket-number">Ticket Number</small>
-          <h2 class="ticket-name">Ticket Name</h2>
-          <div class="even-date">
-            
-            <time>
-              <p>Date Created</p>
-              <p>Time Created</p>
-            </time>
-          </div>
-          <div class="even-info">
-            <p>
-              Created By
-            </p>
-            <p>
-              Assigned to
-            </p>
-          </div>
-          <a href="#">Ticket</a>
-        </section>
-      </article>
-    </div> -->
+<!-- <div class="row" style="width: 100%;">
+  <h1 class="tickets-header col-md-10">Tickets</h1>
+  <button class="add-ticket-button btn btn-outline-light col-md-2">Add Ticket</button>
+</div> -->
 
-  </div>  
+<!-- 
+  container
+    row
+      col-*
+        el
+
+ -->
+<div class="row ticketing-header">
+  <div class="col-6 ticketing-header__title">
+    <h1 class="tickets-header">Tickets</h1>
+  </div>
+
+  <div class="col-6 ticketing-header__button">
+    <button class="add-ticket-button btn btn-outline-light btn-lg">Add Ticket</button>
+  </div>
+</div>
+
+<section class = "row">
+  <div class="container">
+    <div class="search-bar-container">
+      <input type="text" placeholder="Search Tickets" class="ticket-searchbar">
+      <button type="submit" class="search-icon"><i class="fas fa-search search-icon"></i></button>
+    </div>
+  </div>
 </section>
+
+<!-- <section id="ticket-cards">
+  <div class="ticket-card">
+    <div class="col-4 ticket-card__left">
+      <div class="ticket-card__time"></div>
+    </div>
+    <div class="col-4 ticket-card__right">
+      <div class="ticket-card__number">#1</div>
+      <div class="ticket-card__title">Lorem ipsum dolor sit amet.</div>
+      <div class="ticket-card__system">Share Cafe</div>
+      <div class="ticket-card__date">
+        <span class="ticket-date"></span> | <span class="ticket-time"></span>
+      </div>
+
+      <div class="ticket-assigned"></div>
+    </div>
+  </div>
+</section> -->
+
+<section id="ticket-append" class="row">
+
+</section>
+
+<div class="modal" tabindex="-1" id="card-modal">
+  <div class="modal-dialog modal-xl modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modal-title">Title</h5>
+        <span class="badge priority-badge" id="priority-badge">BADGE</span>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="container" style="margin-bottom: 16px;">
+            <div class="row col-12">
+              <section class="col-4 date-modal">
+                <time class="time-wrapper">
+                  <span id="created-date-modal" class="span-month">JANUARY</span>
+                  <span id="created-month-modal" class="span-date">01</span>
+                  <span id="created-year-modal">1900</span>
+                </time>
+              </section>
+              <section class="col-8">
+                <div class="mb-3">
+                  <h3>Description</h3>
+                  <!-- <textarea type="text" class="form-control" id="description-input-modal" maxLength="200" readonly></textarea> -->
+                  <div class="form-control" id="description-input-modal" readonly></div>
+                </div>
+                <div class="mb-3">
+                  <label for="system-input-modal mb-3">System</label>
+                  <input type="text" id="system-input-modal" class="form-control" readonly>
+                </div>
+                <div class="mb-3">
+                  <label for="system-input-modal mb-3">Assigned To</label>
+                  <input type="text" id="assignedto-input-modal" class="form-control" readonly>
+                </div>
+                <div class="mb-3">
+                  <label for="system-input-modal mb-3">Priority</label>
+                  <input type="text" id="priority-input-modal" class="form-control" readonly>
+                </div>
+              </section>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 {{ end }}
 {{ define "script" }}
 <script>
-  var url = "/admin/api/d/ticket/read/?Status=1"
-  var counter = 1;
-  $.get(url, function(index, response){
-    var indexResult = JSON.parse(index).result
-    $.each(indexResult, function(ind, value){
-      $("#ticket-append").append(`<div class = "container-fluid">
-      <div class="card fl-left col-xl-6 col-sm-12 me-1">
-        <section class="date">
-          <time>
-            <span>` + toDays(value.DateCreated) + `</span><span>` + toMonths(value.DateCreated) + `</span><span>` + toYear(value.DateCreated) +`</span>
-          </time>
-        </section>
-        <section class="card-cont">
-          <small class="ticket-number">#` + value.ID + `</small><br>
-          <span class="ticket-name">&nbsp;&#9678 ` + value.Name + `&nbsp;&nbsp;</span>
-          <h1 id="System-`+value.ID +`">` +
-              toSystem(value.SystemID, value.ID)
-            + `</h1>
-          <div class="even-date">
-            <time>
-              <p class="date-created">` + toDate(value.DateCreated) + `</p>
-              
-            </time>
-            <time>
-              <p class="date-created">` + toTime(value.DateCreated) + `</p>
-            </time>
-          </div>
-          <div class="even-info">
-            <span id="AssignedTo-`+value.ID +`">` +
-              toUser(value.AssignedToID, value.ID)
-            + `</span>
-          </div>
-          <button class="btn btn-outline-ticket btn-pull-right" id="open-ticket-`+ value.ID +`" >Open Ticket</button>
-        </section>  
-        </div>
-      </div>`)
-      counter++;
-    })
+  $(function(){
+    LoadTickets();
+  })
+  $('.search-icon').on("click", function(){
+    SearchTickets();
   })
 
+  $('.ticket-searchbar').keyup(function(e){
+    var code = (e.keyCode ? e.keyCode : e.which);
+    if(code == 13) { 
+      SearchTickets();
+    }
+  })
+
+  function SearchTickets(){
+    $("#ticket-append").empty()
+    var search = $(".ticket-searchbar").val();
+    console.log("Search", search);
+    if(search != null || search != undefined || search != ""){
+      var url = "/admin/api/d/ticket/read/?$preload=1&$order=-id&Name__icontains=" + search;
+      var counter = 1;
+      $.get(url, function(index, response){
+        var indexResult = JSON.parse(index).result
+        $.each(indexResult, function(ind, value){
+          $("#ticket-append").append(`
+          <div class = "row">
+            <div class="card fl-left col-xl-6 col-sm-12 ms-2" id="card-`+ value.ID +`">
+              <div class = "row ms-3">
+              <section class="date col-3">
+                <time>
+                  <span>` + toDays(value.DateCreated) + `</span><span>` + toMonths(value.DateCreated) + `</span><span>` + toYear(value.DateCreated) +`</span>
+                </time>
+              </section>
+              <section class="card-cont col-9">
+                <small class="ticket-number">#` + value.ID + `</small><br>
+                <span class="ticket-name">&nbsp;&#9678 ` + value.Name + `&nbsp;&nbsp;</span>
+                <h1 id="System-`+value.ID +`">` +
+                    toSystem(value.SystemID, value.ID)
+                  + `</h1>
+                <div class="even-date">
+                  <time>
+                    <p class="date-created">` + toDate(value.DateCreated) + `</p>
+                    
+                  </time>
+                  <time>
+                    <p class="date-created">` + toTime(value.DateCreated) + `</p>
+                  </time>
+                </div>
+                <div class="even-info">
+                  <span id="AssignedTo-`+value.ID +`">` +
+                    toUser(value.AssignedToID, value.ID)
+                  + `</span>
+                </div>
+              </section>  
+              </div>
+              </div>
+          </div>`)
+          counter++;
+        })
+      })
+    }
+  }
+
+  function LoadTickets(){
+    var url = "/admin/api/d/ticket/read/?Status=1&$order=-id"
+    var counter = 1;
+    $.get(url, function(index, response){
+      var indexResult = JSON.parse(index).result
+      $.each(indexResult, function(ind, value){
+        $("#ticket-append").append(
+        `<div class="card card-` + value.ID + ` fl-left col-xl-6 col-sm-12 ms-2">
+          <div class = "row ms-3">
+          <section class="date col-3">
+            <time>
+              <span>` + toDays(value.DateCreated) + `</span><span>` + toMonths(value.DateCreated) + `</span><span>` + toYear(value.DateCreated) +`</span>
+            </time>
+          </section>
+          <section class="card-cont col-9">
+            <small class="ticket-number">#` + value.ID + `</small><br>
+            <span class="ticket-name">&nbsp;&#9678 ` + value.Name + `&nbsp;&nbsp;</span>
+            <h1 id="System-`+value.ID +`">` +
+                toSystem(value.SystemID, value.ID)
+              + `</h1>
+            <div class="even-date">
+              <time>
+                <p class="date-created">` + toDate(value.DateCreated) + `</p>
+                
+              </time>
+              <time>
+                <p class="date-created">` + toTime(value.DateCreated) + `</p>
+              </time>
+            </div>
+            <div class="even-info">
+              <span id="AssignedTo-`+value.ID +`">` +
+                toUser(value.AssignedToID, value.ID)
+              + `</span>
+            </div>
+          </section>  
+          </div>
+          </div>`)
+        counter++;
+      })
+    })
+  }
   function toDays (dateStr) {
     var parts = dateStr.split("-")
     var day = (parts[2]).split("T")
@@ -186,6 +310,81 @@
   */
 </script>
 <script>
-  var url="/admin/api/d/ticket/read/?"
+  var url="/admin/api/d/ticket/read/?$preload=1"
+// $.get(url, function(index, response){
+//     var tickets = JSON.parse(index).result
+//     $.each(tickets, function(key, value){
+//       console.log("card-"+value.ID)
+//       $("#card-" + value.ID).on("click", "div" , function(){
+//         console.log("card-"+value.ID);
+//       })
+//     })
+//   })
+
+  $.get(url, function(index, response){
+    var tickets = JSON.parse(index).result
+    $.each(tickets, function(key, value){
+      $(".card").on("click", function(){
+        console.log("test123");
+        $("#card-modal").modal('show');
+        document.getElementById("modal-title").innerHTML= value.Name;
+        // document.getElementById("description-input-modal").value = value.Description;
+        $('#created-date-modal').text(toMonthsModal(value.DateCreated))
+        $("#created-month-modal").text(toDays(value.DateCreated))
+        $("#created-year-modal").text(toYear(value.DateCreated))
+
+        var regex = /(<([^>]+)>)/ig
+        result = (value.Description).replace(regex, "");
+        // $("#description-input-modal").val(result)
+        $("#description-input-modal").text(result)
+        // $("textarea").height( $("textarea")[0].scrollHeight );
+        $("#system-input-modal").val(value.System.SystemName)
+        $("#assignedto-input-modal").val(value.AssignedTo.FirstName + " " + value.AssignedTo.LastName)
+        if(value.Priority == 1){
+          $("#priority-input-modal").val("Low")
+          $(".priority-badge").text("Low")
+          $("#priority-badge").css('background-color',"#ffc107")
+        }else if(value.Priority == 2){
+          $("#priority-input-modal").val("Medium")
+          $(".priority-badge").text("Medium")
+          $("#priority-badge").css('background-color',"#fd7e14")
+        }else{
+          $("#priority-input-modal").val("High")
+          $(".priority-badge").text("High")
+          $("#priority-badge").css('background-color',"#dc3545")
+        }
+      })
+    })
+  })
+
+  function toMonthsModal(dateStr){
+    var parts = dateStr.split("-")
+    switch (parts[1]){
+      case "01" || "1":
+        return "January";
+      case "02" || "2":
+        return "February";
+      case "03" || "3":
+        return "March";
+      case "04" || "4":
+        return "April";
+      case "05" || "5":
+        return "May";
+      case "06" || "6":
+        return "June";
+      case "07" || "7":
+        return "July";
+      case "08" || "8":
+        return "August";
+      case "09" || "9":
+        return "September";
+      case "10" :
+        return "October";
+      case "11" :
+        return "November";
+      case "12" :
+        return "December";
+    }
+  }
 </script>
 {{ end }}
