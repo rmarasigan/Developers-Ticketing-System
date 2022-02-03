@@ -1,0 +1,13 @@
+package models
+
+import (
+	"github.com/uadmin/uadmin"
+)
+
+type Solution struct {
+	uadmin.Model
+	SolutionDesc string
+	FilesChanged string
+	Ticket       Ticket
+	TicketID     uint
+}

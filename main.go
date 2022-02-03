@@ -23,6 +23,7 @@ func RegisterModels() {
 		models.System{},
 		models.User_Profile{},
 		models.Department{},
+		models.Solution{},
 	)
 }
 
@@ -39,6 +40,9 @@ func RegisterInlines() {
 
 	uadmin.RegisterInlines(uadmin.User{}, map[string]string{
 		"Ticket": "AssignedToID",
+	})
+	uadmin.RegisterInlines(models.Ticket{}, map[string]string{
+		"Solution": "TicketID",
 	})
 }
 

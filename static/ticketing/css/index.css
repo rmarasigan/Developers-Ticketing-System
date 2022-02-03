@@ -1,28 +1,28 @@
 :root {
-    --background-color : #545E75;
+    --background-color: #545E75;
     --color-primary: #304D6D;
     --color-secondary: #A7CCED;
     --color-tertiary: #82A0BC;
     --color-light: #63ADF2;
-    --color-grey: #C4C9D4;
-
+    --color-grey: #C4C9D4
 }
 
 @font-face {
-    font-family: 'Comfortaa';
+    font-family: Comfortaa;
     src: url('/static/ticketing/fonts/Comfortaa/Comfortaa-VariableFont_wght.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
+    font-weight: 400;
+    font-style: normal
 }
 
-html,body{
-    cursor: url(../img/cursor__metal.cur), pointer;
+body,
+html {
+    cursor: url(../img/cursor__metal.cur), pointer
 }
 
-.navbar-margin-left{
-  margin-left: 32px;
+.navbar-margin-left {
+    margin-left: 32px
 }
-@import url('https://fonts.googleapis.com/css?family=Oswald');
+
 * {
     margin: 0;
     padding: 0;
@@ -43,22 +43,22 @@ body {
     float: right
 }
 
-.btn-pull-right{
-  position: absolute;
-  right: 1rem;
-  bottom: 1rem;
+.btn-pull-right {
+    position: absolute;
+    right: 1rem;
+    bottom: 1rem
 }
+
 h1 {
     text-transform: uppercase;
     font-weight: 900;
     border-left: 10px solid var(--color-primary);
     padding-left: 10px;
-    color: var(--color-primary);
-    /* margin-bottom: 30px */
+    color: var(--color-primary)
 }
 
-h3{
-    font-family: 'Poppins', sans-serif;
+h3 {
+    font-family: Poppins, sans-serif
 }
 
 .row {
@@ -71,7 +71,7 @@ h3{
     background-color: var(--color-grey);
     color: #000;
     margin-bottom: 10px;
-    font-family: 'Oswald', sans-serif;
+    font-family: Oswald, sans-serif;
     text-transform: uppercase;
     border-radius: 4px;
     position: relative
@@ -89,22 +89,23 @@ h3{
     border-right: 2px dashed #dadde6
 }
 
-.date:before,
-.date:after {
-    /* content: ""; */
+.date:after,
+.date:before {
     display: block;
     width: 30px;
     height: 30px;
-    background-color: #DADDE6;
+    background-color: #dadde6;
     position: absolute;
     top: -15px;
     right: -15px;
     z-index: 1;
     border-radius: 50%
 }
-section .date{
-  background-color: var(--color-tertiary);
+
+section .date {
+    background-color: var(--color-tertiary)
 }
+
 .date:after {
     top: auto;
     bottom: -15px
@@ -134,18 +135,17 @@ section .date{
     text-transform: uppercase;
     font-weight: 600;
     margin-top: -10px;
-    color : #000;
+    color: #000
 }
 
 .card-cont {
     display: table-cell;
     width: 75%;
-    font-size: 85%;
-    /* padding: 10px 10px 30px 50px */
+    font-size: 85%
 }
 
 .card-cont h3 {
-    color: #3C3C3C;
+    color: #3c3c3c;
     font-size: 130%
 }
 
@@ -158,15 +158,15 @@ section .date{
 }
 
 .card-cont .even-date i,
-.card-cont .even-info i,
 .card-cont .even-date time,
+.card-cont .even-info i,
 .card-cont .even-info p {
     display: table-cell
 }
 
-.date-created{
-  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-  font-weight: 600;
+.date-created {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-weight: 600
 }
 
 .card-cont .even-date i,
@@ -187,7 +187,7 @@ section .date{
     text-decoration: none;
     width: 80px;
     height: 30px;
-    background-color: #D8DDE0;
+    background-color: #d8dde0;
     color: #fff;
     text-align: center;
     line-height: 30px;
@@ -197,47 +197,49 @@ section .date{
     bottom: 10px
 }
 
-.ticket-name{
-  color: #FFF;
-  font-weight: bold;
-  background-color: var(--color-primary);
-  width: 100%;
-  font-size: x-large;
-  border-radius: 32px;
+.ticket-name {
+    color: #fff;
+    font-weight: 700;
+    background-color: var(--color-primary);
+    width: 100%;
+    font-size: x-large;
+    border-radius: 32px
 }
 
-.ticket-number{
-  font-size: medium;
-  font-weight: bold;
+.ticket-number {
+    font-size: medium;
+    font-weight: 700
 }
 
-.margin-right{
-  margin-right: 10px;
+.margin-right {
+    margin-right: 10px
 }
 
 .btn-outline-ticket {
-  color: #000000;
-  font-weight: bold;
-  border-color: #fce8a1;
-  border-width: 2px;
+    color: #000;
+    font-weight: 700;
+    border-color: #fce8a1;
+    border-width: 2px
 }
 
-h5.modal-title{
+h5.modal-title {
     text-transform: uppercase;
     font-weight: 900;
     border-left: 10px solid var(--color-primary);
     padding-left: 10px;
-    color: #989898;
+    color: #989898
 }
 
 .card:hover {
-    box-shadow: 0 0 0 0.25rem var(--color-primary);
-}
-.btn-check:focus + .btn-outline-ticket, .btn-outline-ticket:focus {
-  box-shadow: 0 0 0 0.25rem rgba(253, 237, 13, 0.5);
+    box-shadow: 0 0 0 .25rem var(--color-primary)
 }
 
-.date-modal{
+.btn-check:focus+.btn-outline-ticket,
+.btn-outline-ticket:focus {
+    box-shadow: 0 0 0 .25rem rgba(253, 237, 13, .5)
+}
+
+.date-modal {
     display: flex;
     background-color: var(--color-light);
     min-height: 32px;
@@ -245,7 +247,7 @@ h5.modal-title{
     align-content: center;
     justify-content: center;
     align-items: center;
-    flex-wrap: nowrap;
+    flex-wrap: nowrap
 }
 
 .date-modal .time-wrapper {
@@ -254,47 +256,47 @@ h5.modal-title{
     flex-wrap: nowrap;
     align-content: center;
     justify-content: center;
-    align-items: center;
+    align-items: center
 }
 
 .date-modal time span {
-    display: block;
+    display: block
 }
 
-.span-date{
+.span-date {
     background-color: #2b2b2b;
     padding-left: 2rem;
     padding-right: 2rem;
     border-radius: 2rem;
     color: #dadde6;
     font-size: 4rem;
-    font-family: 'Luckiest Guy', cursive;;
+    font-family: 'Luckiest Guy', cursive
 }
 
 .date-modal time span:first-child {
     color: #2b2b2b;
     font-size: 4rem;
-    font-family: 'Luckiest Guy', cursive;;
+    font-family: 'Luckiest Guy', cursive
 }
 
 .date-modal time span:last-child {
     color: #2b2b2b;
     font-size: 4rem;
-    font-family: 'Luckiest Guy', cursive;
+    font-family: 'Luckiest Guy', cursive
 }
 
-.priority-badge{
-    color: rgb(255, 255, 255);
+.priority-badge {
+    color: #fff;
     padding: 1rem 7.5rem 1rem 7.5rem;
     position: relative;
     font-size: 2rem;
     left: 10.5rem;
-    border-radius: 2rem;
+    border-radius: 2rem
 }
 
-.btn-close{
+.btn-close {
     position: relative;
-    right: 1rem;
+    right: 1rem
 }
 
 .ticket-searchbar {
@@ -310,109 +312,132 @@ h5.modal-title{
     border-style: solid;
     border-width: 5px;
     padding: 10px;
-    text-align: center;
+    text-align: center
 }
 
 .search-bar-container input {
     height: 4rem;
-    font-family: 'Poppins';
+    font-family: Poppins;
     font-size: 1.5rem;
     color: #212529;
     text-transform: uppercase;
-    font-weight: 600;
+    font-weight: 600
 }
 
 .ticket-searchbar:focus {
     border: 5px solid var(--color-secondary);
-    outline: none;
+    outline: 0
 }
 
 .ticket-searchbar:hover {
-    border: 5px solid var(--color-primary);
+    border: 5px solid var(--color-primary)
 }
 
 .search-icon {
     position: relative;
     border: 0;
     border-radius: 50%;
-    background: rgba(0,0,0,0);
+    background: rgba(0, 0, 0, 0);
     right: 2rem;
-    padding: 1px;
+    padding: 1px
 }
 
-.tickets-header{
+.tickets-header {
     position: relative;
     left: 2%;
-    color: whitesmoke;
+    color: #f5f5f5
 }
 
 .modal-body input {
-    font-family: 'Comfortaa';
-    background: #ffffff;
-    outline: none;
-    border: solid 4px var(--color-secondary);
+    font-family: Comfortaa;
+    background: #fff;
+    outline: 0;
+    border: solid 4px var(--color-secondary)
 }
 
 .modal-body textarea {
-    font-family: 'Comfortaa';
-    background: rgba(0,0,0,0);
-    outline: none;
-    border: solid 4px var(--color-secondary);
+    font-family: Comfortaa;
+    background: rgba(0, 0, 0, 0);
+    outline: 0;
+    border: solid 4px var(--color-secondary)
 }
+
 .modal-body #description-input-modal {
-    font-family: 'Comfortaa';
-    background: rgba(0,0,0,0);
-    outline: none;
+    font-family: Comfortaa;
+    background: rgba(0, 0, 0, 0);
+    outline: 0;
     border: solid 4px var(--color-secondary);
     max-height: 24rem;
-    overflow-y: scroll;
+    overflow-y: scroll
 }
-.modal-body label{
-    font-family: 'Poppins', sans-serif;
+
+.modal-body label {
+    font-family: Poppins, sans-serif;
     font-weight: 700;
-    font-size: large;
+    font-size: large
 }
 
 #description-input-modal::-webkit-scrollbar {
-    width: 7px;
+    width: 7px
 }
 
-/* Track */
 #description-input-modal::-webkit-scrollbar-track {
-    box-shadow: inset 0 0 2px grey; 
+    box-shadow: inset 0 0 2px grey;
     border-radius: 10px;
-    border-color: rgba(0,0,0,0);
+    border-color: transparent
 }
 
-/* Handle */
 #description-input-modal::-webkit-scrollbar-thumb {
-    background: gray; 
-    border-radius: 10px;
+    background: gray;
+    border-radius: 10px
 }
 
-/* Handle on hover */
 #description-input-modal::-webkit-scrollbar-thumb:hover {
-    background: #000000; 
+    background: #000
 }
 
-.ticketing-header__button{
+.ticketing-header__button {
     display: flex;
     justify-content: flex-end;
-    align-items: center;
+    align-items: center
 }
 
-/* @media screen and (max-width: 860px) {
-    .card {
-        display: block;
-        float: none;
-        width: 100%;
-        margin-bottom: 10px
-    }
-    .card+.card {
-        margin-left: 0
-    }
-    .card-cont .even-date,
-    .card-cont .even-info {
-        font-size: 75%
-    }
-} */
+.add-ticket__System {
+    border: solid 4px var(--color-secondary)
+}
+
+.add-ticket__priority {
+    border: solid 4px var(--color-secondary)
+}
+
+.add-ticket__ticketname:hover {
+    border: solid 4px var(--color-primary)
+}
+
+.add-ticket__description:hover {
+    border: solid 4px var(--color-primary)
+}
+
+.add-ticket__System:hover {
+    border: solid 4px var(--color-primary)
+}
+
+.add-ticket__priority:hover {
+    border: solid 4px var(--color-primary)
+}
+
+.add-ticket__ticketname:focus {
+    border: solid 4px var(--color-primary)
+}
+
+.add-ticket__description:focus {
+    border: solid 4px var(--color-primary)
+}
+
+.add-ticket__System:focus {
+    border: solid 4px var(--color-primary)
+}
+
+.add-ticket__priority:focus {
+    border: solid 4px var(--color-primary)
+}

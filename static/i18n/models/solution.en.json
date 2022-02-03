@@ -1,0 +1,33 @@
+{
+  "display_name": "Solution",
+  "fields": {
+    "FilesChanged": {
+      "display_name": "Files Changed",
+      "help": "",
+      "pattern_msg": "",
+      "err_msg": {},
+      "Choices": {}
+    },
+    "ID": {
+      "display_name": "ID",
+      "help": "",
+      "pattern_msg": "",
+      "err_msg": {},
+      "Choices": {}
+    },
+    "SolutionDesc": {
+      "display_name": "Solution Desc",
+      "help": "",
+      "pattern_msg": "",
+      "err_msg": {},
+      "Choices": {}
+    },
+    "Ticket": {
+      "display_name": "Ticket",
+      "help": "",
+      "pattern_msg": "",
+      "err_msg": {},
+      "Choices": {}
+    }
+  }
+}
