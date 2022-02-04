@@ -1,0 +1,78 @@
+@import url("/static/ticketing/css/fonts.css");
+
+:root {
+    --font-title: "Comfortaa", sans-serif;
+    --font-body: "Nunito", sans-serif;
+
+    --background-color: #545E75;
+    --color-primary: #304D6D;
+    --color-secondary: #A7CCED;
+    --color-tertiary: #82A0BC;
+    --color-light: #63ADF2;
+    --color-grey: #C4C9D4
+}
+
+.dev-searchbar {
+    height: 4rem;
+    margin: 1rem 1rem 1rem 1rem;
+    width: 95.5%;
+    position: relative;
+    left: 1rem;
+    background: rgb(255 255 255);
+    align-items: center;
+    border-radius: 1rem;
+    border-color: var(--color-secondary);
+    border-style: solid;
+    border-width: 5px;
+    padding: 10px;
+    text-align: center
+}
+
+.dev-searchbar:focus {
+    border: 5px solid var(--color-secondary);
+    outline: 0
+}
+
+.dev-searchbar:hover {
+    border: 5px solid var(--color-primary)
+}
+
+.dev-card__card{
+    display: flex;
+}
+
+.dev__card{
+    display: flex;
+}
+
+.dev-card__header{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-content: space-around;
+    justify-content: space-between;
+    align-items: stretch;
+}
+.dev-card__title{
+    font-family: var(--font-title);
+    font-weight: 600;
+    font-size: x-large;
+    text-align: center;
+    border-bottom: solid 2px var(--color-primary)
+}
+.dev-card__description{
+    font-family: var(--font-body);
+    text-transform: none;
+    text-align: center;
+}
+.dev-card__link{
+    font-family: var(--font-body);
+    background-color:white;
+    border: solid 3px var(--color-secondary);
+}
+
+.dev-card__link:hover{
+    font-family: var(--font-body);
+    background-color:white;
+    border: solid 3px var(--color-primary);
+}

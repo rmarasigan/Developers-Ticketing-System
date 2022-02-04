@@ -1,4 +1,9 @@
+@import url("/static/ticketing/css/fonts.css");
+
 :root {
+    --font-title: "Comfortaa", sans-serif;
+    --font-body: "Nunito", sans-serif;
+
     --background-color: #545E75;
     --color-primary: #304D6D;
     --color-secondary: #A7CCED;
@@ -7,18 +12,22 @@
     --color-grey: #C4C9D4
 }
 
-@font-face {
-    font-family: Comfortaa;
-    src: url('/static/ticketing/fonts/Comfortaa/Comfortaa-VariableFont_wght.ttf') format('truetype');
-    font-weight: 400;
-    font-style: normal
-}
-
-body,
+/* body,
 html {
     cursor: url(../img/cursor__metal.cur), pointer
+} */
+
+body{
+    cursor: url(/static/ticketing/img/oxygen/Oxygen\ Normal\ Select.cur), default;
 }
 
+button, a{
+    cursor: url(/static/ticketing/img/oxygen/Oxygen\ Link\ Select.cur), pointer !important;
+}
+
+input{
+    cursor: url(/static/ticketing/img/oxygen/Oxygen\ Text\ Select.cur),pointer !important;
+}
 .navbar-margin-left {
     margin-left: 32px
 }
@@ -50,6 +59,7 @@ body {
 }
 
 h1 {
+    font-family: var(--font-title);
     text-transform: uppercase;
     font-weight: 900;
     border-left: 10px solid var(--color-primary);
@@ -58,13 +68,15 @@ h1 {
 }
 
 h3 {
-    font-family: Poppins, sans-serif
+    /* font-family: Poppins, sans-serif */
+    font-family: var(--font-title);
 }
 
 .row {
     overflow: hidden
 }
 
+/* 
 .card {
     display: table-row;
     width: 49%;
@@ -72,6 +84,19 @@ h3 {
     color: #000;
     margin-bottom: 10px;
     font-family: Oswald, sans-serif;
+    text-transform: uppercase;
+    border-radius: 4px;
+    position: relative
+} */
+.ticket__card {
+    display: table-row;
+    width: 49%;
+    /* background-color: var(--color-grey); */
+    background-color: white;
+    color: #000;
+    margin-bottom: 10px;
+    /* font-family: Oswald, sans-serif; */
+    font-family: var(--font-title);
     text-transform: uppercase;
     border-radius: 4px;
     position: relative
@@ -165,7 +190,8 @@ section .date {
 }
 
 .date-created {
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    /* font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; */
+    font-family: var(--font-body);
     font-weight: 600
 }
 
@@ -224,6 +250,7 @@ section .date {
 
 h5.modal-title {
     text-transform: uppercase;
+    font-family: var(--font-title);
     font-weight: 900;
     border-left: 10px solid var(--color-primary);
     padding-left: 10px;
@@ -270,25 +297,29 @@ h5.modal-title {
     border-radius: 2rem;
     color: #dadde6;
     font-size: 4rem;
-    font-family: 'Luckiest Guy', cursive
+    /* font-family: 'Luckiest Guy', cursive */
+    font-family: var(--font-title);
 }
 
 .date-modal time span:first-child {
     color: #2b2b2b;
     font-size: 4rem;
-    font-family: 'Luckiest Guy', cursive
+    /* font-family: 'Luckiest Guy', cursive */
+    font-family: var(--font-title);
 }
 
 .date-modal time span:last-child {
     color: #2b2b2b;
     font-size: 4rem;
-    font-family: 'Luckiest Guy', cursive
+    /* font-family: 'Luckiest Guy', cursive */
+    font-family: var(--font-title);
 }
 
 .priority-badge {
     color: #fff;
     padding: 1rem 7.5rem 1rem 7.5rem;
     position: relative;
+    font-family: var(--font-title);
     font-size: 2rem;
     left: 10.5rem;
     border-radius: 2rem
@@ -317,7 +348,8 @@ h5.modal-title {
 
 .search-bar-container input {
     height: 4rem;
-    font-family: Poppins;
+    /* font-family: Poppins; */
+    font-family: var(--font-body);
     font-size: 1.5rem;
     color: #212529;
     text-transform: uppercase;
@@ -349,21 +381,24 @@ h5.modal-title {
 }
 
 .modal-body input {
-    font-family: Comfortaa;
+    /* font-family: Comfortaa; */
+    font-family: var(--font-body);
     background: #fff;
     outline: 0;
     border: solid 4px var(--color-secondary)
 }
 
 .modal-body textarea {
-    font-family: Comfortaa;
+    /* font-family: Comfortaa; */
+    font-family: var(--font-body);
     background: rgba(0, 0, 0, 0);
     outline: 0;
     border: solid 4px var(--color-secondary)
 }
 
 .modal-body #description-input-modal {
-    font-family: Comfortaa;
+    /* font-family: Comfortaa; */
+    font-family: var(--font-body);
     background: rgba(0, 0, 0, 0);
     outline: 0;
     border: solid 4px var(--color-secondary);
@@ -372,7 +407,8 @@ h5.modal-title {
 }
 
 .modal-body label {
-    font-family: Poppins, sans-serif;
+    /* font-family: Poppins, sans-serif; */
+    font-family: var(--font-title);
     font-weight: 700;
     font-size: large
 }

@@ -1,0 +1,53 @@
+{{ define "title"}}
+<title>
+	Systems · Ticketing
+</title>
+{{ end }}
+{{ define "style" }}
+	<link rel="stylesheet" href="/static/ticketing/css/systems.css">
+{{ end }}
+{{ define "content"}}
+
+<div class="row ticketing-header">
+	<div class="col-6 ticketing-header__title">
+		<h1 class="tickets-header">Systems</h1>
+	</div>
+</div>
+
+<section class="row">
+	<div class="container">
+		<div class="search-bar-container">
+			<input type="text" placeholder="Search Systems" class="ticket-searchbar system__searchbar">
+			<button type="submit" class="search-icon"><i class="fas fa-search search-icon"></i></button>
+		</div>
+	</div>
+</section>
+
+<section id="system-append" class="row">
+	
+</section>
+{{ end }}
+{{ define "script" }}
+<script>
+
+var url = "/admin/api/d/system/read/?"
+$.get(url, function(index, response){
+	var system = JSON.parse(index).result
+	$.each(system, function(key, value){
+		$("#system-append").append(`
+		<div class="col-3 mb-3  system-card__card">
+		<div class="card system__card">
+			<div class="card-body system-card__header">
+			  <h5 class="card-title system-card__title"> ` + value.SystemName + `</h5>
+			  <p class="card-text system-card__description"> ` + value.Description + `</p>
+			  <div class="d-grip gap-2 mx-auto">
+				<a href="`+ value.SystemURL +`" class="btn system-card__link" target="_blank">System Link</a>
+			  </div>
+			</div>
+		</div>
+	</div>
+		`)
+	})
+})
+</script>
+{{ end }}

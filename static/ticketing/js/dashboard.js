@@ -14,12 +14,12 @@ function SearchTickets() {
     $("#ticket-append").empty()
     var search = $(".ticket-searchbar").val();
     if (search != null || search != undefined || search != "") {
-        var url = "/admin/api/d/ticket/read/?$preload=1&$order=-id&Name__icontains=" + search;
+        var url = "/admin/api/d/ticket/read/?$preload=1&$order=-id&Status=1&Name__icontains=" + search;
         var counter = 1;
         $.get(url, function (index, response) {
             var indexResult = JSON.parse(index).result
             $.each(indexResult, function (ind, value) {
-                $("#ticket-append").append(`<div class="card card-` + value.ID + ` fl-left col-xl-6 col-sm-12 ms-2" onclick="onclickModal(` + value.ID + `)">
+                $("#ticket-append").append(`<div class="card ticket__card card-` + value.ID + ` fl-left col-xl-6 col-sm-12 ms-2" onclick="onclickModal(` + value.ID + `)">
                 <div class = "row ms-3">
                 <section class="date col-3">
                 <time>
@@ -56,13 +56,13 @@ function SearchTickets() {
 }
 
 function LoadTickets() {
-    var url = "/admin/api/d/ticket/read/?Status=1&$order=-id"
+    var url =  "/admin/api/d/ticket/read/?$preload=1&Status=1&$order=-id"
     var counter = 1;
     $.get(url, function (index, response) {
         var indexResult = JSON.parse(index).result
         $.each(indexResult, function (ind, value) {
             $("#ticket-append").append(
-                `<div class="card card-` + value.ID + ` fl-left col-xl-6 col-sm-12 ms-2" onclick="onclickModal(` + value.ID + `)">
+                `<div class="card ticket__card card-` + value.ID + ` fl-left col-xl-6 col-sm-12 ms-2" onclick="onclickModal(` + value.ID + `)">
         <div class = "row ms-3">
         <section class="date col-3">
         <time>
@@ -101,7 +101,7 @@ function LoadTickets() {
 
 // Searching Tickets
 function onclickModal(ID) {
-    var url = "/admin/api/d/ticket/read/?$preload=1&ID=" + ID;
+    var url = "/admin/api/d/ticket/read/?$preload=1&Status=1&ID=" + ID;
 
     $.get(url, function (index, response) {
         var tickets = JSON.parse(index).result
@@ -119,7 +119,11 @@ function onclickModal(ID) {
             $("#description-input-modal").text(result)
             // $("textarea").height( $("textarea")[0].scrollHeight );
             $("#system-input-modal").val(value.System.SystemName)
-            $("#assignedto-input-modal").val(value.AssignedTo.FirstName + " " + value.AssignedTo.LastName)
+            if ((value.AssignedTo.FirstName == undefined && value.AssignedTo.LastName == undefined) || (value.AssignedTo.FirstName == "" && value.AssignedTo.LastName == "")){
+                $("#assignedto-input-modal").val("-")
+            }else{
+                $("#assignedto-input-modal").val(value.AssignedTo.FirstName + " " + value.AssignedTo.LastName)
+            }
             if (value.Priority == 1) {
                 $("#priority-input-modal").val("Low")
                 $(".priority-badge").text("Low")
@@ -191,11 +195,25 @@ function toTime(dateStr) {
 }
 
 function toUser(id, ele) {
+    if (id == "0"){
+        var url = "/admin/api/d/user/read/?ID=0"
+        $.get(url, function (index, response) {
+            console.log("FHUSDIFHDSUI", id)
+            if (id == "0"){
+                var none = "Not Yet Assigned"
+                document.getElementById("AssignedTo-" + ele).innerHTML = none
+            }
+        })
+    }
     var url = "/admin/api/d/user/read/?ID="
     url += id;
     $.get(url, function (index, response) {
         var responseResult = JSON.parse(index).result
         $.each(responseResult, function (key, value) {
+            // if (id == 0 || id == "0" || id == "" || id == undefined){
+            //     var none = "-"
+            //     document.getElementById("AssignedTo-" + ele).innerHTML = none
+            // }
             if (value.ID == id) {
                 var FirstName = JSON.stringify(value.FirstName)
                 FirstName = FirstName.split('"')

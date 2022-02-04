@@ -32,6 +32,15 @@ func TicketingHandler(w http.ResponseWriter, r *http.Request) {
 	switch page {
 	case "dashboard":
 		context = Dashboard(w, r)
+	case "tickets":
+		context = Tickets(w, r)
+	case "systems":
+		context = Systems(w, r)
+	case "developers":
+		context = Developers(w, r)
+	default:
+		page = "dashboard"
+		context = Dashboard(w, r)
 	}
 
 	context["Page"] = strings.Title(page)

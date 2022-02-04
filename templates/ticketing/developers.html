@@ -1,0 +1,58 @@
+{{ define "title"}}
+<title>
+	Developers · Ticketing
+</title>
+{{ end }}
+
+{{ define "style" }}
+	<link rel="stylesheet" href="/static/ticketing/css/developers.css">
+{{ end }}
+
+{{ define "content"}}
+
+<div class="row ticketing-header">
+	<div class="col-6 ticketing-header__title">
+		<h1 class="tickets-header">Developers</h1>
+	</div>
+</div>
+
+<section class="row">
+	<div class="container">
+		<div class="search-bar-container">
+			<input type="text" placeholder="Search Developers" class="dev-searchbar">
+			<button type="submit" class="search-icon"><i class="fas fa-search search-icon"></i></button>
+		</div>
+	</div>
+</section>
+
+<section id="dev-append" class="row">
+
+</section>
+
+{{ end }}
+
+{{ define "script" }}
+<script>
+	var url = "/admin/api/d/user/read/?"
+	$.get(url, function(index, response){
+		var userurl= JSON.parse(index).result
+		$.each(userurl, function(key, value){
+			if(value.UserGroupID == 1){
+				console.log("DEV")
+				$("#dev-append").append(`
+				<div class="col-3 mb-3  dev-card__card">
+					<div class="card dev">
+						<div class="card-body dev-card__header">
+						<h5 class="card-title dev-card__title">` + value.FirstName +` `+ value.LastName + `</h5>
+						<p class="card-text dev-card__description">`+ value.Email +`</p>
+						<div class="d-grip gap-2 mx-auto">
+						</div>
+						</div>
+					</div>
+				</div>
+				`)
+			}
+		})
+	})
+</script>
+{{ end }}

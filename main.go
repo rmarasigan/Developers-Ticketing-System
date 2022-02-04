@@ -21,7 +21,6 @@ func RegisterModels() {
 	uadmin.Register(
 		models.Ticket{},
 		models.System{},
-		models.User_Profile{},
 		models.Department{},
 		models.Solution{},
 	)

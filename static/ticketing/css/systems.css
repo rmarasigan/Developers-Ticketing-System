@@ -1,0 +1,54 @@
+@import url("/static/ticketing/css/fonts.css");
+
+:root {
+    --font-title: "Comfortaa", sans-serif;
+    --font-body: "Nunito", sans-serif;
+
+    --background-color: #545E75;
+    --color-primary: #304D6D;
+    --color-secondary: #A7CCED;
+    --color-tertiary: #82A0BC;
+    --color-light: #63ADF2;
+    --color-grey: #C4C9D4
+}
+
+.system-card__card{
+    display: flex;
+}
+
+.system__card{
+    display: flex;
+}
+
+.system-card__header{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-content: space-around;
+    justify-content: space-between;
+    align-items: stretch;
+}
+.system-card__title{
+    font-family: var(--font-title);
+    font-weight: 600;
+    font-size: x-large;
+    text-align: center;
+    border-bottom: solid 2px var(--color-primary)
+}
+.system-card__description{
+    font-family: var(--font-body);
+    text-transform: none;
+    text-align: center;
+}
+.system-card__link{
+    font-family: var(--font-body);
+    background-color:white;
+    border: solid 3px var(--color-secondary);
+}
+
+.system-card__link:hover{
+    font-family: var(--font-body);
+    background-color:white;
+    border: solid 3px var(--color-primary);
+}
+

@@ -1,0 +1,75 @@
+{{ define "title"}}
+<title>
+	Tickets · Ticketing
+</title>
+{{ end }}
+
+{{ define "content"}}
+
+<div class="row ticketing-header">
+	<div class="col-6 ticketing-header__title">
+		<h1 class="tickets-header">Tickets Closed</h1>
+	</div>
+</div>
+
+<section class="row">
+	<div class="container">
+		<div class="search-bar-container">
+			<input type="text" placeholder="Search Tickets" class="ticket-searchbar closed-tickets__searchbar">
+			<button type="submit" class="search-icon"><i class="fas fa-search search-icon"></i></button>
+		</div>
+	</div>
+</section>
+
+<section id="ticket-append" class="row">
+
+</section>
+
+<!-- Modals -->
+<div class="modal" tabindex="-1" id="closed-ticket-modal">
+	<div class="modal-dialog modal-xl modal-dialog-centered">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="modal-title">Title</h5>
+				<span class="badge priority-badge" id="priority-badge">BADGE</span>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<div class="container" style="margin-bottom: 16px;">
+					<div class="row col-12">
+						<section class="col-4 date-modal">
+							<time class="time-wrapper">
+								<span id="created-date-modal" class="span-month">JANUARY</span>
+								<span id="created-month-modal" class="span-date">01</span>
+								<span id="created-year-modal">1900</span>
+							</time>
+						</section>
+						<section class="col-8">
+							<div class="mb-3">
+								<h3>Description</h3>
+								<!-- <textarea type="text" class="form-control" id="description-input-modal" maxLength="200" readonly></textarea> -->
+								<div class="form-control" id="description-input-modal" readonly></div>
+							</div>
+							<div class="mb-3">
+								<label for="system-input-modal mb-3">System</label>
+								<input type="text" id="system-input-modal" class="form-control" readonly>
+							</div>
+							<div class="mb-3">
+								<label for="system-input-modal mb-3">Assigned To</label>
+								<input type="text" id="assignedto-input-modal" class="form-control" readonly>
+							</div>
+							<div class="mb-3">
+								<label for="system-input-modal mb-3">Priority</label>
+								<input type="text" id="priority-input-modal" class="form-control" readonly>
+							</div>
+						</section>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{{ end }}
+{{ define "script" }}
+<script src="/static/ticketing/js/closed-tickets.js"></script>
+{{ end }}
