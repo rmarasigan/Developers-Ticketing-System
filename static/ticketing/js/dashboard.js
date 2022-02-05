@@ -1,11 +1,12 @@
+// Initial Functions and events
 LoadTickets();
 var developers = "/admin/api/d/user/read/?user_group_id=1";
-$.get(developers, function(_index, _response){
+$.get(developers, function (_index, _response) {
     var devs = JSON.parse(_index).result;
-    $.each(devs, function(_key, _value){
+    $.each(devs, function (_key, _value) {
         $(".modal-ticket__assignedto").append(`
-            <option value="`+_value.ID+`">`+ _value.FirstName + " " + _value.LastName +`</option>
-        `)
+        <option value="`+ _value.ID + `">` + _value.FirstName + " " + _value.LastName + `</option>
+    `)
     })
 })
 
@@ -20,6 +21,7 @@ $('.ticket-searchbar').keyup(function (e) {
     }
 })
 
+// Ticket Search
 function SearchTickets() {
     $("#ticket-append").empty()
     var search = $(".ticket-searchbar").val();
@@ -30,49 +32,12 @@ function SearchTickets() {
             var indexResult = JSON.parse(index).result
             $.each(indexResult, function (ind, value) {
                 $("#ticket-append").append(`
-                <div class="col-lg-4 col-md-6 col-sm-12 col-12 mb-3 ticket-card__wrapper">
-                    <div class="card" onclick="onclickModal(` + value.ID + `)"">
-                        <div class="card-body">
-                            <div class="card-title row tickets-card-title">
-                                <div class="col-sm-2">
-                                    <h4 class="ticket-card__number" onclick="badge(`+value.ID+`">` + value.ID + `</h4>
-                                </div>
-                                <div class="col-sm-10">
-                                    <h3 class="ticket-card__title">` + value.Name + `</h3>
-                                </div>
-                            </div>
-                            <section class="row">
-                                <div class="borderbot"></div>
-                            </section>
-                            <div class="card-description">
-                                <h4 class="ticket-card__system" id="System-`+ value.ID + `">` + toSystem(value.SystemID, value.ID) + `</h4>
-                                <h5 class="ticket-card__date-created">`+ toDate(value.DateCreated) + `</h5>
-                                <h5 id="AssignedTo-`+ value.ID + `" class="ticket-card__assignedto">` + toUser(value.AssignedToID, value.ID) + `</h5>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                `)
-                $('.ticket-card__number').css('color', 'var(--color-info)')
-                counter++;
-            })
-        })
-    }
-}
-
-function LoadTickets() {
-    var url = "/admin/api/d/ticket/read/?$preload=1&Status=1&$order=-id"
-    var counter = 1;
-    $.get(url, function (index, response) {
-        var indexResult = JSON.parse(index).result
-        $.each(indexResult, function (ind, value) {
-            $("#ticket-append").append(`
             <div class="col-lg-4 col-md-6 col-sm-12 col-12 mb-3 ticket-card__wrapper">
                 <div class="card" onclick="onclickModal(` + value.ID + `)"">
                     <div class="card-body">
                         <div class="card-title row tickets-card-title">
                             <div class="col-sm-2">
-                                <h4 id="ticket-card__number--`+ value.ID +`" class="ticket-card__number">` + value.ID + `</h4>
+                                <h4 class="ticket-card__number" onclick="badge(`+ value.ID + `">` + value.ID + `</h4>
                             </div>
                             <div class="col-sm-10">
                                 <h3 class="ticket-card__title">` + value.Name + `</h3>
@@ -83,71 +48,106 @@ function LoadTickets() {
                         </section>
                         <div class="card-description">
                             <h4 class="ticket-card__system" id="System-`+ value.ID + `">` + toSystem(value.SystemID, value.ID) + `</h4>
-                            <h5 class="ticket-card__date-created">`+ toMonthsModal(value.DateCreated) +" "+ toDays(value.DateCreated) + ", " +  toYear(value.DateCreated) + `</h5>
+                            <h5 class="ticket-card__date-created">`+ toDate(value.DateCreated) + `</h5>
                             <h5 id="AssignedTo-`+ value.ID + `" class="ticket-card__assignedto">` + toUser(value.AssignedToID, value.ID) + `</h5>
                         </div>
                     </div>
                 </div>
             </div>
-            `).on("ready",badge(value.ID));
+            `)
+                $('.ticket-card__number').css('color', 'var(--color-info)')
+                counter++;
+            })
+        })
+    }
+}
+
+// Onload Tickets
+function LoadTickets() {
+    var url = "/admin/api/d/ticket/read/?$preload=1&Status=1&$order=-id"
+    var counter = 1;
+    $.get(url, function (index, response) {
+        var indexResult = JSON.parse(index).result
+        $.each(indexResult, function (ind, value) {
+            $("#ticket-append").append(`
+                <div class="col-lg-4 col-md-6 col-sm-12 col-12 mb-3 ticket-card__wrapper">
+                    <div class="card" onclick="onclickModal(` + value.ID + `)" data-label=` + value.ID + `>
+                        <div class="card-body">
+                            <div class="card-title row tickets-card-title">
+                                <div class="col-sm-2">
+                                    <h4 id="ticket-card__number--`+ value.ID + `" class="ticket-card__number">` + value.ID + `</h4>
+                                </div>
+                                <div class="col-sm-10">
+                                    <h3 class="ticket-card__title">` + value.Name + `</h3>
+                                </div>
+                            </div>
+                            <section class="row">
+                                <div class="borderbot"></div>
+                            </section>
+                            <div class="card-description">
+                                <h4 class="ticket-card__system" id="System-`+ value.ID + `">` + toSystem(value.SystemID, value.ID) + `</h4>
+                                <h5 class="ticket-card__date-created">`+ toMonthsModal(value.DateCreated) + " " + toDays(value.DateCreated) + ", " + toYear(value.DateCreated) + `</h5>
+                                <h5 id="AssignedTo-`+ value.ID + `" class="ticket-card__assignedto">` + toUser(value.AssignedToID, value.ID) + `</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `).on("ready", badge(value.ID));
             counter++;
 
         })
     })
 
 }
-function badge(ID){
+
+// For Badge
+function badge(ID) {
     var url = "/admin/api/d/ticket/read?"
-    $.get(url, function(index, response){
+    $.get(url, function (index, response) {
         var tickets = JSON.parse(index).result;
-        $.each(tickets, function(key, value){
-            if (value.ID == ID){
-                console.log("GGRRR", value.Priority , " value.ID ", value.ID, "ID ", ID);
-                switch (value.Priority){
+        $.each(tickets, function (key, value) {
+            if (value.ID == ID) {
+                switch (value.Priority) {
                     case 1 || '1':
-                        $("#ticket-card__number--" +ID).attr('style','background-color: var(--color-low)')
-                        $("#ticket-card__number--" +ID).css('color', "var(--color-epic)")
-                        console.log("1")
+                        $("#ticket-card__number--" + ID).attr('style', 'background-color: var(--color-low)')
+                        $("#ticket-card__number--" + ID).css('color', "var(--color-epic)")
                         break;
-                    case 2 || '2': 
-                        $("#ticket-card__number--" +ID).attr('style', 'background-color: var(--color-medium)')
-                        $("#ticket-card__number--" +ID).css('color', "var(--color-epic)")
-                        console.log("2")
+                    case 2 || '2':
+                        $("#ticket-card__number--" + ID).attr('style', 'background-color: var(--color-medium)')
+                        $("#ticket-card__number--" + ID).css('color', "var(--color-epic)")
                         break;
-                    case 3 || '3': 
-                        $("#ticket-card__number--" +ID).attr('style', 'background-color: var(--color-high)')
-                        $("#ticket-card__number--" +ID).css('color', "white")
-                        console.log("3")
+                    case 3 || '3':
+                        $("#ticket-card__number--" + ID).attr('style', 'background-color: var(--color-high)')
+                        $("#ticket-card__number--" + ID).css('color', "white")
                         break;
-                    case 4 || '4': 
-                        $("#ticket-card__number--" +ID).attr('style', 'background-color: var(--color-info)')
-                        $("#ticket-card__number--" +ID).css('color', "white")
-                        console.log("4")
+                    case 4 || '4':
+                        $("#ticket-card__number--" + ID).attr('style', 'background-color: var(--color-info)')
+                        $("#ticket-card__number--" + ID).css('color', "white")
                         break;
-                    case 5 || '5': 
-                        $("#ticket-card__number--" +ID).attr('style', 'background-color: var(--color-epic)')
-                        $("#ticket-card__number--" +ID).css('color', "white")
-                        console.log("5")
+                    case 5 || '5':
+                        $("#ticket-card__number--" + ID).attr('style', 'background-color: var(--color-epic)')
+                        $("#ticket-card__number--" + ID).css('color', "white")
                         break;
                     default:
-                        $("#ticket-card__number--" +ID).attr('style', 'background-color: var(--color-primary)')
-                        $("#ticket-card__number--" +ID).css('color', "white")
-                        console.log("default")                             
+                        $("#ticket-card__number--" + ID).attr('style', 'background-color: var(--color-primary)')
+                        $("#ticket-card__number--" + ID).css('color', "white")
                 }
             }
         })
     })
 
 }
-// Searching Tickets
+
+// Cards Modal
 function onclickModal(ID) {
+    localStorage.setItem("current_ticket",ID)
     var url = "/admin/api/d/ticket/read/?$preload=1&Status=1&ID=" + ID;
     $.get(url, function (index, response) {
         var tickets = JSON.parse(index).result
         $.each(tickets, function (key, value) {
             $("#card-modal").modal('show');
             document.getElementById("modal-title").innerHTML = value.Name;
-            $('#create-date-modal').val(toMonthsModal(value.DateCreated) +" "+ toDays(value.DateCreated) + ", " +  toYear(value.DateCreated))
+            $('#create-date-modal').val(toMonthsModal(value.DateCreated) + " " + toDays(value.DateCreated) + ", " + toYear(value.DateCreated))
 
             var regex = /(<([^>]+)>)/ig
             result = (value.Description).replace(regex, "");
@@ -160,32 +160,32 @@ function onclickModal(ID) {
             } else {
                 $("#assignedto-input-modal").val(value.AssignedTo.FirstName + " " + value.AssignedTo.LastName)
             }
-            switch (value.Priority){
-                case 1 :
+            switch (value.Priority) {
+                case 1:
                     $("#priority-input-modal").val("Low")
                     $("#priority-badge").text("Low")
                     $("#priority-badge").css('background-color', "var(--color-low)")
                     $("#priority-badge").css('color', "var(--color-epic)")
                     break;
-                case 2: 
+                case 2:
                     $("#priority-input-modal").val("Medium")
                     $("#priority-badge").text("Medium")
                     $("#priority-badge").css('background-color', "var(--color-medium)")
                     $("#priority-badge").css('color', "var(--color-epic)")
                     break;
-                case 3: 
+                case 3:
                     $("#priority-input-modal").val("High")
                     $("#priority-badge").text("High")
                     $("#priority-badge").css('background-color', "var(--color-high)")
                     $("#priority-badge").css('color', "white")
                     break;
-                case 4: 
+                case 4:
                     $("#priority-input-modal").val("Info")
                     $("#priority-badge").text("Info")
                     $("#priority-badge").css('background-color', "var(--color-info)")
                     $("#priority-badge").css('color', "white")
                     break;
-                case 5: 
+                case 5:
                     $("#priority-input-modal").val("Epic")
                     $("#priority-badge").text("Epic")
                     $("#priority-badge").css('background-color', "var(--color-epic)")
@@ -195,7 +195,7 @@ function onclickModal(ID) {
                     $("#priority-input-modal").val("Priority")
                     $("#priority-badge").text("Priority")
                     $("#priority-badge").css('background-color', "var(--color-primary)")
-                    $("#priority-badge").css('color', "white")                             
+                    $("#priority-badge").css('color', "white")
             }
             $(".modal-ticket__assignedto").val(value.AssignedToID);
             $("#modal-ticket__save").attr('onclick', 'saveAssigned(' + ID + ')')
@@ -203,7 +203,8 @@ function onclickModal(ID) {
     })
 }
 
-function saveAssigned(ID){
+//Save assigned to
+function saveAssigned(ID) {
     $.ajax({
         "method": "POST",
         "data":

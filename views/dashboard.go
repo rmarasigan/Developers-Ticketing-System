@@ -3,6 +3,7 @@ package views
 import (
 	"net/http"
 	"strconv"
+	"time"
 
 	"github.com/mark/developers_ticketing_system/models"
 	"github.com/uadmin/uadmin"
@@ -19,6 +20,8 @@ func Dashboard(w http.ResponseWriter, r *http.Request) map[string]interface{} {
 	uadmin.All(&systems)
 	users := []uadmin.User{}
 	uadmin.All(&users)
+	solutions := models.Solution{}
+	// uadmin.All(&solution)
 
 	if r.Method == "POST" {
 		dataAction := r.FormValue("data-action")
@@ -59,6 +62,25 @@ func Dashboard(w http.ResponseWriter, r *http.Request) map[string]interface{} {
 					uadmin.Save(&tickets)
 				}
 			}
+		}
+	}
+
+	if r.Method == "POST" {
+		dataaction := r.FormValue("data-action")
+		ticketID := r.FormValue("ticket-id")
+
+		if dataaction == "save-comment" {
+			uadmin.Get(&tickets, "id = ?", ticketID)
+			// uadmin.Trail(uadmin.DEBUG, "TICKETID %v", tickets.ID)
+
+			tickets.DateClosed = time.Now()
+			tickets.Status = false
+			solutions.SolutionDesc = r.FormValue("solutiondesc")
+			solutions.FilesChanged = r.FormValue("files")
+			solutions.Ticket = tickets
+			solutions.TicketID = tickets.ID
+			uadmin.Save(&solutions)
+			uadmin.Save(&tickets)
 		}
 	}
 	return context

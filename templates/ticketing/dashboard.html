@@ -100,6 +100,7 @@
 		</div>
 	</div>
 </div>
+
 <!-- Ticket Saved Modal -->
 <div class="modal ticket_saved" tabindex="-1">
 	<div class="modal-dialog modal-dialog-centered">
@@ -123,18 +124,19 @@
 	<div class="modal-dialog modal-dialog-centered ticket-modal">
 	  <div class="modal-content">
 		<div class="modal-header ">
-		  <h5 id="modal-close-title" class="modal-title modal-ticket__title">Modal title</h5>
-		  <div class="modal-ticket__priority">
-			<span id="priority-badge" class="modal-ticket__priority-badge">PRIORITY</span>
-		  </div>
+		  <h5 id="modal-close-title" class="modal-title modal-ticket__title">Close this Ticket</h5>
 		</div>
 		<div class="modal-body modal-ticket-body">
 			<form method="POST">
-				
+				<h5>Ticket Comment</h5>
+        <textarea id="close-ticket__comment" cols="30" rows="5" class="form-control close-ticket__comment"></textarea>
+        <h5>Files Changed</h5>
+        <input type="text" class="form-control" id="close-ticket__files-changed">
 			</form>
 		</div>
 		<div class="modal-footer">
 			<button id="modal-close-ticket__save" class="close-ticket__modal btn btn-outline__primary">Save Ticket</button>
+			<button id="modal-close-ticket__back" class="close-ticket__modal btn btn-outline__dark">Back</button>
 		</div>
 	  </div>
 	</div>
@@ -143,6 +145,7 @@
 {{ define "script" }}
 <script src="/static/ticketing/js/dashboard.js"></script>
 <script>
+  // Add ticket assign to
 	var system_url = "/admin/api/d/system/read/?"
 	$.get(system_url, function (index, response) {
 		system_url = JSON.parse(index).result
@@ -153,11 +156,13 @@
 			}));
 		})
 	})
-	// add ticket 
+  
+	// add ticket modal events
 	$(".add-ticket-button").on('click', function () {
 		$(".add-ticket-modal").modal('show');
 	})
-	$(".add-ticket__save").on('click', function () {
+	
+  $(".add-ticket__save").on('click', function () {
     $(".add-ticket__ticketname").css('border-color', 'var(--color-secondary)');
     $(".add-ticket__priority").css('border-color', 'var(--color-secondary)');
     $(".add-ticket__description").css('border-color', 'var(--color-secondary)');
@@ -177,7 +182,6 @@
     }else if (ticket_system == "" || ticket_system == undefined){
       $(".add-ticket__System").css('border-color', 'var(--color-high)');
     }else{
-
       $.ajax({
 			"method": "POST",
 			"data":
@@ -194,20 +198,56 @@
 				$(".add-ticket__description").val("");
 				$(".add-ticket__System").val("");
 				$(".add-ticket__priority").val("");
-
 			}
 		})
     }
 
 	})
-	$(".delayed-reload").on('click', function(){
+	
+  $(".delayed-reload").on('click', function(){
 		$(location).attr('href', '/ticketing/dashboard')
 	})
 
+  // Close ticket modal events
   $("#modal-ticket__close-ticket").on('click', function(){
     console.log('click');
     $("#card-modal").modal('hide');
     $("#card-modal__close-ticket").modal('show');
+  })
+
+  $('#modal-close-ticket__back').on('click', function(){
+    $("#card-modal__close-ticket").modal('hide');
+    $("#card-modal").modal('show');
+  })
+
+  $('#modal-close-ticket__save').on('click', function(){
+    var comment = $('#close-ticket__comment').val();
+    var files_changed = $('#close-ticket__files-changed').val();
+
+    if(comment == "" || comment == undefined){
+      $('#close-ticket__comment').css('border-color', 'var(--color-high)');
+    }else if(files_changed == "" || files_changed == undefined){
+      $('#close-ticket__files-changed').css('border-color', 'var(--color-high)');
+    }else{
+      var current_ticket = localStorage.getItem("current_ticket");
+      console.log("current ticket ", current_ticket);
+      $.ajax({
+			"method": "POST",
+			"data":
+			{
+				"data-action": "save-comment",
+        "ticket-id": current_ticket,
+				"solutiondesc": $('#close-ticket__comment').val(),
+				"files": $('#close-ticket__files-changed').val(),
+			}, "success": function () {
+				$('#card-modal__close-ticket').modal('hide');
+				$(".ticket_saved").modal('show');
+
+				$('#close-ticket__comment').val("");
+				$('#close-ticket__files-changed').val("");
+			}
+		})
+    }
   })
 </script>
 {{ end }}

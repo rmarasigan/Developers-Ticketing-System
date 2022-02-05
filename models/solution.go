@@ -11,3 +11,7 @@ type Solution struct {
 	Ticket       Ticket
 	TicketID     uint
 }
+
+func (s *Solution) String() string {
+	return s.SolutionDesc
+}

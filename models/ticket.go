@@ -17,8 +17,8 @@ type Ticket struct {
 	Status       bool
 	Priority     Priority
 	CreatedBy    string    `uadmin:"read_only hidden"`
-	DateCreated  time.Time `uadmin:"read_only"`
-	DateClosed   time.Time `uadmin:"read_only"`
+	DateCreated  time.Time `uadmin:"read_only hidden"`
+	DateClosed   time.Time `uadmin:"read_only hidden"`
 }
 
 type Priority int

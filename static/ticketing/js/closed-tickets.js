@@ -87,6 +87,7 @@ function LoadTickets() {
 
 // Searching Tickets
 function closedticketmodal(ID) {
+    localStorage.setItem('current-closed-ticket', ID);
     var url = "/admin/api/d/ticket/read/?$preload=1&Status=0&ID=" + ID;
 
     $.get(url, function (index, response) {
@@ -155,7 +156,6 @@ function toDate(dateStr) {
     var parts = dateStr.split("T")
     var date = parts[0].split("-")
     var months = toMonths(date[2])
-    console.log(months, typeof (date[2]))
     var finaldate = months + " " + date[1] + ", " + date[0]
     return finaldate
 }
@@ -193,7 +193,6 @@ function toYear(dateStr) {
     var parts = dateStr.split("-")
     return parts[0]
 }
-
 
 function toTime(dateStr) {
     var parts = dateStr.split("T")
@@ -268,3 +267,21 @@ function toMonthsModal(dateStr) {
             return "December";
     }
 }
+
+// Closed tickets modal events
+$('#modal-closed-ticket__open').on('click', function(){
+    $("#closed-ticket-modal").modal('hide');
+    $('#card-modal__close-ticket').modal('show');
+    var curr_closed = localStorage.getItem('current-closed-ticket');
+    $.get('/admin/api/d/ticket/read/?id='+curr_closed+'$preload=1', function(index, response){
+        $.each(JSON.parse(index).result, function(key, value){
+            var ticketID = value.ID
+            $.get('/admin/api/d/solution/read/?$preload=1&ticket_id='+ticketID, function(i, r){
+                $.each(JSON.parse(i).result, function(k, v){
+                    $('#close-ticket__comment').val(v.SolutionDesc);
+                    $('#close-ticket__files-changed').val(v.FilesChanged);
+                })
+            })
+        })
+    })
+})

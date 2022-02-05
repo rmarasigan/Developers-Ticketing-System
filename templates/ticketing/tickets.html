@@ -49,11 +49,33 @@
 			<!-- <input type="text" id="assignedto-input-modal" class="form-control" readonly> -->
 		</div>
 		<div class="modal-footer">
-			<button id="modal-ticket__open" class="close-ticket__modal btn btn-outline__primary">Open Changes</button>
+			<button id="modal-closed-ticket__open" class="close-ticket__modal btn btn-outline__primary">Open Changes</button>
 		</div>
 	  </div>
 	</div>
   </div>
+
+  <!-- Closed Ticket Modal -->
+  <div id="card-modal__close-ticket" class="modal" tabindex="-1">
+	<div class="modal-dialog modal-dialog-centered ticket-modal">
+	  <div class="modal-content">
+		<div class="modal-header ">
+		  <h5 id="modal-close-title" class="modal-title modal-ticket__title">Closed Ticket</h5>
+		</div>
+		<div class="modal-body modal-ticket-body">
+			<form method="POST">
+				<h5>Ticket Comment</h5>
+        <textarea id="close-ticket__comment" cols="30" rows="5" class="form-control close-ticket__comment" readonly></textarea>
+        <h5>Files Changed</h5>
+        <input type="text" class="form-control" id="close-ticket__files-changed" readonly>
+			</form>
+		</div>
+		<div class="modal-footer">
+			<button id="modal-close-ticket__back" class="close-ticket__modal btn btn-outline__dark" data-bs-dismiss="modal">Close</button>
+		</div>
+	  </div>
+	</div>
+</div>
 {{ end }}
 {{ define "script" }}
 <script src="/static/ticketing/js/closed-tickets.js"></script>
