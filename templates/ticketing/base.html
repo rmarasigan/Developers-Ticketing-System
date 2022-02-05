@@ -7,10 +7,6 @@
     <link rel="stylesheet" href="/static/ticketing/css/bootstrap.css">
     <link rel="stylesheet" href="/static/ticketing/css/index.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <style>
-      @import url('https://fonts.googleapis.com/css2?family=Poppins:ital@1&display=swap');
-      @import url('https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap');
-    </style>
     {{ template "style" . }}
   </head>
   <body>
@@ -23,16 +19,16 @@
         <div class="collapse navbar-collapse navbar-margin-left " id="navbarSupportedContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="/ticketing/dashboard">Home</a>
+              <a class="nav-link" aria-current="page" id="navlink__home" href="/ticketing/dashboard">Home</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/ticketing/tickets">Closed Tickets</a>
+              <a class="nav-link" id="navlink__tickets" href="/ticketing/tickets">Closed Tickets</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/ticketing/systems">Systems</a>
+              <a class="nav-link" id="navlink__systems" href="/ticketing/systems">Systems</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/ticketing/developers">Developers</a>
+              <a class="nav-link" id="navlink__developers" href="/ticketing/developers">Developers</a>
             </li>
           </ul>
           <form class="d-flex" method="POST" action="/logout">

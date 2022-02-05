@@ -30,15 +30,17 @@
 
 .dev-searchbar:focus {
     border: 5px solid var(--color-secondary);
-    outline: 0
+    outline: 0;
+    
 }
 
 .dev-searchbar:hover {
-    border: 5px solid var(--color-primary)
+    border: 5px solid var(--color-primary);
 }
 
 .dev-card__card{
-    display: flex;
+    display: grid;
+    height: 200px;
 }
 
 .dev__card{
@@ -75,4 +77,10 @@
     font-family: var(--font-body);
     background-color:white;
     border: solid 3px var(--color-primary);
+}
+
+.borderbot{
+    border-bottom: solid 10px var(--color-light);
+    margin: 1rem 0 2rem 0;
+    border-radius: 1rem;
 }

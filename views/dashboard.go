@@ -9,13 +9,16 @@ import (
 )
 
 func Dashboard(w http.ResponseWriter, r *http.Request) map[string]interface{} {
-	// username := uadmin.IsAuthenticated(r).User.Username
+	username := uadmin.IsAuthenticated(r).User.FirstName
+	username += " " + uadmin.IsAuthenticated(r).User.LastName
 
 	context := map[string]interface{}{}
 	tickets := models.Ticket{}
-	systems := []models.System{}
 	uadmin.Preload(&tickets)
+	systems := []models.System{}
 	uadmin.All(&systems)
+	users := []uadmin.User{}
+	uadmin.All(&users)
 
 	if r.Method == "POST" {
 		dataAction := r.FormValue("data-action")
@@ -36,7 +39,26 @@ func Dashboard(w http.ResponseWriter, r *http.Request) map[string]interface{} {
 			ticketspriority := int(ticketpriority)
 			tickets.Priority = models.Priority(ticketspriority)
 			tickets.Status = true
+			tickets.CreatedBy = username
 			tickets.Save()
+		}
+	}
+	if r.Method == "POST" {
+		data_action := r.FormValue("data-action")
+		ID := r.FormValue("ID")
+		// ticketID, _ := strconv.ParseInt(ID, 10, 64)
+		if data_action == "save-assigned" {
+			uadmin.Get(&tickets, "id = ?", ID)
+			uadmin.Preload(&tickets)
+			devID, _ := strconv.ParseInt(r.FormValue("assignedto"), 10, 64)
+
+			for j := range users {
+				if users[j].ID == uint(devID) {
+					tickets.AssignedTo = users[j]
+					tickets.AssignedToID = users[j].ID
+					uadmin.Save(&tickets)
+				}
+			}
 		}
 	}
 	return context

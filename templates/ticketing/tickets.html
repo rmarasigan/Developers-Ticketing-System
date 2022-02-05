@@ -3,7 +3,9 @@
 	Tickets · Ticketing
 </title>
 {{ end }}
-
+{{ define "style" }}
+<link rel="stylesheet" href="/static/ticketing/css/tickets.css">
+{{ end }}
 {{ define "content"}}
 
 <div class="row ticketing-header">
@@ -22,53 +24,36 @@
 </section>
 
 <section id="ticket-append" class="row">
-
+	<!-- Closed Tickets are appending here -->
 </section>
 
 <!-- Modals -->
-<div class="modal" tabindex="-1" id="closed-ticket-modal">
-	<div class="modal-dialog modal-xl modal-dialog-centered">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title" id="modal-title">Title</h5>
-				<span class="badge priority-badge" id="priority-badge">BADGE</span>
-				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-			</div>
-			<div class="modal-body">
-				<div class="container" style="margin-bottom: 16px;">
-					<div class="row col-12">
-						<section class="col-4 date-modal">
-							<time class="time-wrapper">
-								<span id="created-date-modal" class="span-month">JANUARY</span>
-								<span id="created-month-modal" class="span-date">01</span>
-								<span id="created-year-modal">1900</span>
-							</time>
-						</section>
-						<section class="col-8">
-							<div class="mb-3">
-								<h3>Description</h3>
-								<!-- <textarea type="text" class="form-control" id="description-input-modal" maxLength="200" readonly></textarea> -->
-								<div class="form-control" id="description-input-modal" readonly></div>
-							</div>
-							<div class="mb-3">
-								<label for="system-input-modal mb-3">System</label>
-								<input type="text" id="system-input-modal" class="form-control" readonly>
-							</div>
-							<div class="mb-3">
-								<label for="system-input-modal mb-3">Assigned To</label>
-								<input type="text" id="assignedto-input-modal" class="form-control" readonly>
-							</div>
-							<div class="mb-3">
-								<label for="system-input-modal mb-3">Priority</label>
-								<input type="text" id="priority-input-modal" class="form-control" readonly>
-							</div>
-						</section>
-					</div>
-				</div>
-			</div>
+<div id="closed-ticket-modal" class="modal" tabindex="-1">
+	<div class="modal-dialog modal-dialog-centered ticket-modal">
+	  <div class="modal-content">
+		<div class="modal-header ">
+		  <h5 id="modal-title" class="modal-title modal-ticket__title">Modal title</h5>
+		  <div class="modal-ticket__priority">
+			<span id="priority-badge" class="modal-ticket__priority-badge">PRIORITY</span>
+		  </div>
 		</div>
+		<div class="modal-body modal-ticket-body">
+			<p class="modal-ticket__body">System</p>
+			<input id="system-input-modal" type="text" class="form-control" readonly>
+		  	<p class="modal-ticket__body">Description</p>
+		  	<div class="form-control" id="description-input-modal" readonly></div>
+		  	<p class="modal-ticket__body">Date Closed</p>
+			<input id="close-date-modal" type="text" class="form-control" readonly>
+			<p class="modal-ticket__body">Assigned To</p>
+			<input id="modal-ticket__assignedto" type="text" class="form-control modal-ticket__assignedto" readonly>
+			<!-- <input type="text" id="assignedto-input-modal" class="form-control" readonly> -->
+		</div>
+		<div class="modal-footer">
+			<button id="modal-ticket__open" class="close-ticket__modal btn btn-outline__primary">Open Changes</button>
+		</div>
+	  </div>
 	</div>
-</div>
+  </div>
 {{ end }}
 {{ define "script" }}
 <script src="/static/ticketing/js/closed-tickets.js"></script>

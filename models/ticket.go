@@ -32,6 +32,12 @@ func (Priority) Medium() int {
 func (Priority) High() int {
 	return 3
 }
+func (Priority) Info() int {
+	return 4
+}
+func (Priority) Epic() int {
+	return 5
+}
 
 func (t *Ticket) String() string {
 	return t.Name
@@ -41,7 +47,6 @@ func (t *Ticket) Save() {
 	if t.DateCreated.IsZero() {
 		t.DateCreated = time.Now()
 	} else {
-		uadmin.Trail(uadmin.DEBUG, "A date has already been set")
 	}
 	if !t.Status {
 		t.DateClosed = time.Now()

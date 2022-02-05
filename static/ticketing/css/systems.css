@@ -13,7 +13,7 @@
 }
 
 .system-card__card{
-    display: flex;
+    display: grid;
 }
 
 .system__card{
@@ -52,3 +52,8 @@
     border: solid 3px var(--color-primary);
 }
 
+.borderbot{
+    border-bottom: solid 10px var(--color-light);
+    margin: 1rem 0 2rem 0;
+    border-radius: 1rem;
+}

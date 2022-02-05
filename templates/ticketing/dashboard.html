@@ -3,19 +3,12 @@
 	Dashboard · Ticketing
 </title>
 {{ end }}
+
+{{ define "style" }}
+<link rel="stylesheet" href="/static/ticketing/css/tickets.css">
+{{ end }}
+
 {{ define "content" }}
-<!-- <div class="row" style="width: 100%;">
-  <h1 class="tickets-header col-md-10">Tickets</h1>
-  <button class="add-ticket-button btn btn-outline-light col-md-2">Add Ticket</button>
-</div> -->
-
-<!-- 
-  container
-    row
-      col-*
-        el
-
- -->
 <div class="row ticketing-header">
 	<div class="col-6 ticketing-header__title">
 		<h1 class="tickets-header">Tickets</h1>
@@ -35,29 +28,11 @@
 	</div>
 </section>
 
-<!-- <section id="ticket-cards">
-  <div class="ticket-card">
-    <div class="col-4 ticket-card__left">
-      <div class="ticket-card__time"></div>
-    </div>
-    <div class="col-4 ticket-card__right">
-      <div class="ticket-card__number">#1</div>
-      <div class="ticket-card__title">Lorem ipsum dolor sit amet.</div>
-      <div class="ticket-card__system">Share Cafe</div>
-      <div class="ticket-card__date">
-        <span class="ticket-date"></span> | <span class="ticket-time"></span>
-      </div>
-
-      <div class="ticket-assigned"></div>
-    </div>
-  </div>
-</section> -->
-
 <section id="ticket-append" class="row">
-
+	<!-- Tickets append here -->
 </section>
 
-<div class="modal" tabindex="-1" id="card-modal">
+<!-- <div class="modal" tabindex="-1" id="card-modal">
 	<div class="modal-dialog modal-xl modal-dialog-centered">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -78,7 +53,6 @@
 						<section class="col-8">
 							<div class="mb-3">
 								<h3>Description</h3>
-								<!-- <textarea type="text" class="form-control" id="description-input-modal" maxLength="200" readonly></textarea> -->
 								<div class="form-control" id="description-input-modal" readonly></div>
 							</div>
 							<div class="mb-3">
@@ -99,7 +73,39 @@
 			</div>
 		</div>
 	</div>
-</div>
+</div> -->
+<div id="card-modal" class="modal" tabindex="-1">
+	<div class="modal-dialog modal-dialog-centered ticket-modal">
+	  <div class="modal-content">
+		<div class="modal-header ">
+		  <h5 id="modal-title" class="modal-title modal-ticket__title">Modal title</h5>
+		  <div class="modal-ticket__priority">
+			<span id="priority-badge" class="modal-ticket__priority-badge">PRIORITY</span>
+		  </div>
+		</div>
+		<div class="modal-body modal-ticket-body">
+			<form method="POST">
+				<p class="modal-ticket__body">System</p>
+				<input id="system-input-modal" type="text" class="form-control" readonly>
+				  <p class="modal-ticket__body">Description</p>
+				  <div class="form-control" id="description-input-modal" readonly></div>
+				  <p class="modal-ticket__body">Created Date</p>
+				<input id="create-date-modal" type="text" class="form-control" readonly>
+				<p class="modal-ticket__body">Assigned To</p>
+				<select class="form-select modal-ticket__assignedto">
+					<option value="0" selected hidden></option>
+				</select>
+			</form>
+			
+			<!-- <input type="text" id="assignedto-input-modal" class="form-control" readonly> -->
+		</div>
+		<div class="modal-footer">
+			<button id="modal-ticket__save" class="close-ticket__modal btn btn-outline__primary">Save Ticket</button>
+			<button id="moda-ticket__close-ticket" class="close-ticket__modal btn btn-outline__dark">Close this Ticket</button>
+		</div>
+	  </div>
+	</div>
+  </div>
 
 <div class="modal add-ticket-modal" tabindex="-1">
 	<div class="modal-dialog modal-xl modal-dialog-centered">
@@ -121,10 +127,12 @@
 					</select>
 					<h5>Priority</h5>
 					<select class="form-select add-ticket__priority">
-						<option value="0" selected></option>
+						<option value="0" selected hidden></option>
+						<option value="4">Info</option>
 						<option value="1">Low</option>
 						<option value="2">Medium</option>
 						<option value="3">High</option>
+						<option value="5">Epic</option>
 					</select>
 				</form>
 			</div>
@@ -147,7 +155,7 @@
 				<h4>Ticket Saved Successfully</h4>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-primary" data-bs-dismiss="modal">Okay</button>
+				<button type="button" class="btn btn-primary delayed-reload" data-bs-dismiss="modal">Okay</button>
 			</div>
 		</div>
 	</div>
@@ -160,7 +168,6 @@
 	var system_url = "/admin/api/d/system/read/?"
 	$.get(system_url, function (index, response) {
 		system_url = JSON.parse(index).result
-		console.log("URL", system_url)
 		$.each(system_url, function (key, value) {
 			$(".add-ticket__System").append($('<option>', {
 				value: value.ID,
@@ -168,12 +175,11 @@
 			}));
 		})
 	})
-	// add ticket
+	// add ticket 
 	$(".add-ticket-button").on('click', function () {
 		$(".add-ticket-modal").modal('show');
 	})
 	$(".add-ticket__save").on('click', function () {
-		console.log("click")
 		$.ajax({
 			"method": "POST",
 			"data":
@@ -184,18 +190,18 @@
 				"system": $(".add-ticket__System").val(),
 				"priority": $(".add-ticket__priority").val(),
 			}, "success": function () {
-				console.log("saved")
 				$(".add-ticket-modal").modal('hide');
 				$(".ticket_saved").modal('show');
-
 				$(".add-ticket__ticketname").val("");
 				$(".add-ticket__description").val("");
 				$(".add-ticket__System").val("");
 				$(".add-ticket__priority").val("");
 
-				$(location).attr('href', '/ticketing/dashboard')
 			}
 		})
+	})
+	$(".delayed-reload").on('click', function(){
+		$(location).attr('href', '/ticketing/dashboard')
 	})
 </script>
 {{ end }}

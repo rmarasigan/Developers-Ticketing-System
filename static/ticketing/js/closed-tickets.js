@@ -19,35 +19,28 @@ function SearchTickets() {
         $.get(url, function (index, response) {
             var indexResult = JSON.parse(index).result
             $.each(indexResult, function (ind, value) {
-                $("#ticket-append").append(`<div class="card ticket__card card-` + value.ID + ` fl-left col-xl-6 col-sm-12 ms-2" onclick="closedticketmodal(` + value.ID + `)">
-                <div class = "row ms-3">
-                <section class="date col-3">
-                <time>
-                    <span>` + toDays(value.DateClosed) + `</span><span>` + toMonths(value.DateClosed) + `</span><span>` + toYear(value.DateClosed) + `</span>
-                </time>
-                </section>
-                <section class="card-cont col-9">
-                <small class="ticket-number">#` + value.ID + `</small><br>
-                <span class="ticket-name">&nbsp;&#9678 ` + value.Name + `&nbsp;&nbsp;</span>
-                <h1 id="System-`+ value.ID + `">` +
-                    toSystem(value.SystemID, value.ID)
-                    + `</h1>
-                <div class="even-date">
-                    <time>
-                    <p class="date-created">` + toDate(value.DateClosed) + `</p>
-                    
-                    </time>
-                    <time>
-                    <p class="date-created">` + toTime(value.DateClosed) + `</p>
-                    </time>
-                </div>
-                <div class="even-info">
-                    <span id="AssignedTo-`+ value.ID + `">` +
-                    toUser(value.AssignedToID, value.ID)
-                    + `</span>
-                </div>
-                </section>  
-                </div>
+                $("#ticket-append").append(`
+                <div class="col-lg-4 col-md-6 col-sm-12 col-12 mb-3 ticket-card__wrapper">
+                    <div class="card" onclick="closedticketmodal(` + value.ID + `)">
+                        <div class="card-body">
+                            <div class="card-title row tickets-card-title">
+                                <div class="col-sm-2">
+                                    <h4 class="ticket-card__number">` + value.ID + `</h4>
+                                </div>
+                                <div class="col-sm-10">
+                                    <h3 class="ticket-card__title">` + value.Name + `</h3>
+                                </div>
+                            </div>
+                            <section class="row">
+                                <div class="borderbot"></div>
+                            </section>
+                            <div class="card-description">
+                                <h4 class="ticket-card__system" id="System-`+ value.ID + `">` + toSystem(value.SystemID, value.ID) + `</h4>
+                                <h5 class="ticket-card__date--closed">`+ toDate(value.DateClosed) + `</h5>
+                                <h5 id="AssignedTo-`+ value.ID + `" class="ticket-card__assignedto">` + toUser(value.AssignedToID, value.ID) + `</h5>
+                            </div>
+                        </div>
+                    </div>
                 </div>`)
                 counter++;
             })
@@ -61,37 +54,30 @@ function LoadTickets() {
     $.get(url, function (index, response) {
         var indexResult = JSON.parse(index).result
         $.each(indexResult, function (ind, value) {
-            $("#ticket-append").append(
-                `<div class="card ticket__card card-` + value.ID + ` fl-left col-xl-6 col-sm-12 ms-2" onclick="closedticketmodal(` + value.ID + `)">
-        <div class = "row ms-3">
-        <section class="date col-3">
-        <time>
-            <span>` + toDays(value.DateClosed) + `</span><span>` + toMonths(value.DateClosed) + `</span><span>` + toYear(value.DateClosed) + `</span>
-        </time>
-        </section>
-        <section class="card-cont col-9">
-        <small class="ticket-number">#` + value.ID + `</small><br>
-        <span class="ticket-name">&nbsp;&#9678 ` + value.Name + `&nbsp;&nbsp;</span>
-        <h1 id="System-`+ value.ID + `">` +
-                toSystem(value.SystemID, value.ID)
-                + `</h1>
-        <div class="even-date">
-            <time>
-            <p class="date-created">` + toDate(value.DateClosed) + `</p>
-            
-            </time>
-            <time>
-            <p class="date-created">` + toTime(value.DateClosed) + `</p>
-            </time>
-        </div>
-        <div class="even-info">
-            <span id="AssignedTo-`+ value.ID + `">` +
-                toUser(value.AssignedToID, value.ID)
-                + `</span>
-        </div>
-        </section>  
-        </div>
-        </div>`)
+            $("#ticket-append").append(`
+            <div class="col-lg-4 col-md-6 col-sm-12 col-12 mb-3 ticket-card__wrapper">
+                <div class="card" onclick="closedticketmodal(` + value.ID + `)">
+                    <div class="card-body">
+                        <div class="card-title row tickets-card-title">
+                            <div class="col-sm-2">
+                                <h4 class="ticket-card__number">` + value.ID + `</h4>
+                            </div>
+                            <div class="col-sm-10">
+                                <h3 class="ticket-card__title">` + value.Name + `</h3>
+                            </div>
+                        </div>
+                        <section class="row">
+                            <div class="borderbot"></div>
+                        </section>
+                        <div class="card-description">
+                            <h4 class="ticket-card__system" id="System-`+ value.ID + `">` + toSystem(value.SystemID, value.ID) + `</h4>
+                            <h5 class="ticket-card__date--closed">`+ toDate(value.DateClosed) + `</h5>
+                            <h5 id="AssignedTo-`+ value.ID + `" class="ticket-card__assignedto">` + toUser(value.AssignedToID, value.ID) + `</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            `)
             counter++;
 
         })
@@ -109,29 +95,49 @@ function closedticketmodal(ID) {
             $("#closed-ticket-modal").modal('show');
             document.getElementById("modal-title").innerHTML = value.Name;
             // document.getElementById("description-input-modal").value = value.Description;
-            $('#created-date-modal').text(toMonthsModal(value.DateClosed))
-            $("#created-month-modal").text(toDays(value.DateClosed))
-            $("#created-year-modal").text(toYear(value.DateClosed))
+            $('#close-date-modal').val(toMonthsModal(value.DateClosed) +" "+ toDays(value.DateClosed) + ", " +  toYear(value.DateClosed))
 
             var regex = /(<([^>]+)>)/ig
             result = (value.Description).replace(regex, "");
-            // $("#description-input-modal").val(result)
             $("#description-input-modal").text(result)
-            // $("textarea").height( $("textarea")[0].scrollHeight );
             $("#system-input-modal").val(value.System.SystemName)
-            $("#assignedto-input-modal").val(value.AssignedTo.FirstName + " " + value.AssignedTo.LastName)
-            if (value.Priority == 1) {
-                $("#priority-input-modal").val("Low")
-                $(".priority-badge").text("Low")
-                $("#priority-badge").css('background-color', "#ffc107")
-            } else if (value.Priority == 2) {
-                $("#priority-input-modal").val("Medium")
-                $(".priority-badge").text("Medium")
-                $("#priority-badge").css('background-color', "#fd7e14")
-            } else {
-                $("#priority-input-modal").val("High")
-                $(".priority-badge").text("High")
-                $("#priority-badge").css('background-color', "#dc3545")
+            $("#modal-ticket__assignedto").val(value.AssignedTo.FirstName + " " + value.AssignedTo.LastName)
+            switch (value.Priority){
+                case 1 :
+                    $("#priority-input-modal").val("Low")
+                    $("#priority-badge").text("Low")
+                    $("#priority-badge").css('background-color', "var(--color-low)")
+                    $("#priority-badge").css('color', "var(--color-epic)")
+                    break;
+                case 2: 
+                    $("#priority-input-modal").val("Medium")
+                    $("#priority-badge").text("Medium")
+                    $("#priority-badge").css('background-color', "var(--color-medium)")
+                    $("#priority-badge").css('color', "var(--color-epic)")
+                    break;
+                case 3: 
+                    $("#priority-input-modal").val("High")
+                    $(".priority-badge").text("High")
+                    $("#priority-badge").css('background-color', "var(--color-high)")
+                    $("#priority-badge").css('color', "white")
+                    break;
+                case 4: 
+                    $("#priority-input-modal").val("Info")
+                    $("#priority-badge").text("Info")
+                    $("#priority-badge").css('background-color', "var(--color-info)")
+                    $("#priority-badge").css('color', "white")
+                    break;
+                case 5: 
+                    $("#priority-input-modal").val("Epic")
+                    $("#priority-badge").text("Epic")
+                    $("#priority-badge").css('background-color', "var(--color-epic)")
+                    $("#priority-badge").css('color', "white")
+                    break;
+                default:
+                    $("#priority-input-modal").val("Priority")
+                    $("#priority-badge").text("Priority")
+                    $("#priority-badge").css('background-color', "var(--color-primary)")
+                    $("#priority-badge").css('color', "white")                             
             }
         })
     })
@@ -145,17 +151,25 @@ function toDays(dateStr) {
     return day[0]
 }
 
+function toDate(dateStr) {
+    var parts = dateStr.split("T")
+    var date = parts[0].split("-")
+    var months = toMonths(date[2])
+    console.log(months, typeof (date[2]))
+    var finaldate = months + " " + date[1] + ", " + date[0]
+    return finaldate
+}
+
 function toMonths(dateStr) {
-    var parts = dateStr.split("-")
-    switch (parts[1]) {
+    switch (dateStr) {
         case "01" || "1":
-            return "Jan";
+            return "January";
         case "02" || "2":
-            return "Feb";
+            return "February";
         case "03" || "3":
-            return "Mar";
+            return "March";
         case "04" || "4":
-            return "Apr";
+            return "April";
         case "05" || "5":
             return "May";
         case "06" || "6":
@@ -163,15 +177,15 @@ function toMonths(dateStr) {
         case "07" || "7":
             return "July";
         case "08" || "8":
-            return "Aug";
+            return "August";
         case "09" || "9":
-            return "Sept";
+            return "September";
         case "10":
-            return "Oct";
+            return "October";
         case "11":
-            return "Nov";
+            return "November";
         case "12":
-            return "Dec";
+            return "December";
     }
 }
 
@@ -179,10 +193,7 @@ function toYear(dateStr) {
     var parts = dateStr.split("-")
     return parts[0]
 }
-function toDate(dateStr) {
-    var parts = dateStr.split("T")
-    return parts[0]
-}
+
 
 function toTime(dateStr) {
     var parts = dateStr.split("T")

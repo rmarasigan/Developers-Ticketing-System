@@ -9,7 +9,13 @@
     --color-secondary: #A7CCED;
     --color-tertiary: #82A0BC;
     --color-light: #63ADF2;
-    --color-grey: #C4C9D4
+    --color-grey: #C4C9D4;
+
+    --color-low: #ffec59;
+    --color-medium: #FFA23A;
+    --color-high: #FF5768;
+    --color-info: #2C6D93;
+    --color-epic: #020408;
 }
 
 /* body,
@@ -28,6 +34,10 @@ button, a{
 input{
     cursor: url(/static/ticketing/img/oxygen/Oxygen\ Text\ Select.cur),pointer !important;
 }
+
+select{
+    cursor: url(/static/ticketing/img/oxygen/Oxygen\ Link\ Select.cur),pointer !important;
+}
 .navbar-margin-left {
     margin-left: 32px
 }
@@ -42,6 +52,10 @@ input{
 body {
     background-color: var(--background-color);
     font-family: arial
+}
+
+.navbar{
+    font-family: var(--font-title);
 }
 
 .fl-left {
@@ -131,7 +145,7 @@ section .date {
     background-color: var(--color-tertiary)
 }
 
-.date:after {
+/* .date:after {
     top: auto;
     bottom: -15px
 }
@@ -161,9 +175,9 @@ section .date {
     font-weight: 600;
     margin-top: -10px;
     color: #000
-}
+} */
 
-.card-cont {
+/* .card-cont {
     display: table-cell;
     width: 75%;
     font-size: 85%
@@ -190,7 +204,6 @@ section .date {
 }
 
 .date-created {
-    /* font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; */
     font-family: var(--font-body);
     font-weight: 600
 }
@@ -221,7 +234,7 @@ section .date {
     position: absolute;
     right: 10px;
     bottom: 10px
-}
+} */
 
 .ticket-name {
     color: #fff;
@@ -232,7 +245,7 @@ section .date {
     border-radius: 32px
 }
 
-.ticket-number {
+/* .ticket-number {
     font-size: medium;
     font-weight: 700
 }
@@ -246,7 +259,7 @@ section .date {
     font-weight: 700;
     border-color: #fce8a1;
     border-width: 2px
-}
+} */
 
 h5.modal-title {
     text-transform: uppercase;
@@ -254,7 +267,7 @@ h5.modal-title {
     font-weight: 900;
     border-left: 10px solid var(--color-primary);
     padding-left: 10px;
-    color: #989898
+    color: var(--color-epic);
 }
 
 .card:hover {
@@ -266,7 +279,7 @@ h5.modal-title {
     box-shadow: 0 0 0 .25rem rgba(253, 237, 13, .5)
 }
 
-.date-modal {
+/* .date-modal {
     display: flex;
     background-color: var(--color-light);
     min-height: 32px;
@@ -288,34 +301,34 @@ h5.modal-title {
 
 .date-modal time span {
     display: block
-}
+} */
 
-.span-date {
+/* .span-date {
     background-color: #2b2b2b;
     padding-left: 2rem;
     padding-right: 2rem;
     border-radius: 2rem;
     color: #dadde6;
     font-size: 4rem;
-    /* font-family: 'Luckiest Guy', cursive */
+    /* font-family: 'Luckiest Guy', cursive 
     font-family: var(--font-title);
 }
 
 .date-modal time span:first-child {
     color: #2b2b2b;
     font-size: 4rem;
-    /* font-family: 'Luckiest Guy', cursive */
+    /* font-family: 'Luckiest Guy', cursive 
     font-family: var(--font-title);
 }
 
 .date-modal time span:last-child {
     color: #2b2b2b;
     font-size: 4rem;
-    /* font-family: 'Luckiest Guy', cursive */
+    /* font-family: 'Luckiest Guy', cursive 
     font-family: var(--font-title);
-}
+} */
 
-.priority-badge {
+/* .priority-badge {
     color: #fff;
     padding: 1rem 7.5rem 1rem 7.5rem;
     position: relative;
@@ -323,6 +336,31 @@ h5.modal-title {
     font-size: 2rem;
     left: 10.5rem;
     border-radius: 2rem
+} */
+.btn-outline__primary{
+    font-family: var(--font-title);
+    font-weight: 600;
+    border:solid 2px var(--color-primary);
+}
+.btn-outline__primary:hover{
+    font-family: var(--font-title);
+    font-weight: 600;
+    color: white;
+    background-color: var(--color-primary);
+    border:solid 2px var(--color-secondary);
+}
+
+.btn-outline__dark{
+    font-family: var(--font-title);
+    font-weight: 600;
+    border:solid 2px var(--color-epic);
+}
+.btn-outline__dark:hover{
+    font-family: var(--font-title);
+    font-weight: 600;
+    color: white;
+    background-color: var(--color-epic);
+    border:solid 2px var(--color-grey);
 }
 
 .btn-close {
@@ -380,8 +418,39 @@ h5.modal-title {
     color: #f5f5f5
 }
 
+.ticket-card__wrapper{
+    display: grid;
+}
+.ticket-card__number{
+    border-radius: 10px;
+    padding: 5px;
+    text-align: center;
+}
+
+/* *MODALS* */
+.ticket-modal{
+    min-width: 700px;
+}
+.modal-ticket__body{
+    font-family: var(--font-title);
+    font-weight: 600;
+    margin: 5px;
+}
+.modal-ticket__title{
+    text-align: center;
+}
+.modal-ticket__priority{
+    margin-right: 10px;
+}
+.modal-ticket__priority-badge{
+    font-family: var(--font-title);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    padding: 5px;
+    border-radius: 5px;
+}
 .modal-body input {
-    /* font-family: Comfortaa; */
     font-family: var(--font-body);
     background: #fff;
     outline: 0;
@@ -389,7 +458,6 @@ h5.modal-title {
 }
 
 .modal-body textarea {
-    /* font-family: Comfortaa; */
     font-family: var(--font-body);
     background: rgba(0, 0, 0, 0);
     outline: 0;
@@ -397,7 +465,6 @@ h5.modal-title {
 }
 
 .modal-body #description-input-modal {
-    /* font-family: Comfortaa; */
     font-family: var(--font-body);
     background: rgba(0, 0, 0, 0);
     outline: 0;
@@ -407,7 +474,6 @@ h5.modal-title {
 }
 
 .modal-body label {
-    /* font-family: Poppins, sans-serif; */
     font-family: var(--font-title);
     font-weight: 700;
     font-size: large
@@ -476,4 +542,28 @@ h5.modal-title {
 
 .add-ticket__priority:focus {
     border: solid 4px var(--color-primary)
+}
+
+.navbar-brand{
+    border-bottom: solid 4px var(--color-light);
+    border-top: solid 4px var(--color-light);
+    border-radius: 3px;
+}
+
+.nav-link{
+    font-weight: 500;
+    border-top: 1px solid transparent;
+    border-bottom: 1px solid transparent;
+}
+
+.nav-link:hover{
+    border-bottom: solid 1px var(--color-light);
+    border-top: solid 1px var(--color-light);
+    color: white;
+}
+
+.nav-link.active{
+    border-bottom: solid 1px var(--color-light);
+    border-top: solid 1px var(--color-light);
+    color: white;
 }

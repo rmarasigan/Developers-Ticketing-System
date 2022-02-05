@@ -14,6 +14,7 @@ func main() {
 	RegisterHandlers()
 	RegisterInlines()
 	// NMSHandlers()
+	sampleData()
 	ServerandPort()
 }
 
@@ -21,7 +22,6 @@ func RegisterModels() {
 	uadmin.Register(
 		models.Ticket{},
 		models.System{},
-		models.Department{},
 		models.Solution{},
 	)
 }
