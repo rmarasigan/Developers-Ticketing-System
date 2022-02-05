@@ -36,7 +36,7 @@ function SearchTickets() {
                             </section>
                             <div class="card-description">
                                 <h4 class="ticket-card__system" id="System-`+ value.ID + `">` + toSystem(value.SystemID, value.ID) + `</h4>
-                                <h5 class="ticket-card__date--closed">`+ toDate(value.DateClosed) + `</h5>
+                                <h5 class="ticket-card__date--closed">`+ toMonthsModal(value.DateCreated) +" "+ toDays(value.DateCreated) + ", " +  toYear(value.DateCreated) + `</h5>
                                 <h5 id="AssignedTo-`+ value.ID + `" class="ticket-card__assignedto">` + toUser(value.AssignedToID, value.ID) + `</h5>
                             </div>
                         </div>
